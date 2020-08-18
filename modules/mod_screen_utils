@@ -1,0 +1,241 @@
+#!/bin/bash
+# title			:BASHRC System
+# description	:The help system for BASHRC System
+# author		:Jessica Brown
+# date			:2019-12-20
+# version		:4
+# usage			:After install, just open a terminal
+# notes			:This script is self installing
+# bash_version	:4.1.5(1)-release
+# ==============================================================================
+# TODO:
+#   Need to make this dynamically generated as new modules are added to the module folder
+#   Vision: Have a function called <modulename>_help() it will contain a 1 liner and a
+#           full description. The one liner would be generated inside this file and the
+#           full description would be if they call that command with --help or (-h)
+
+function clear_screen() {
+    echo -en "\033c";
+}
+
+function civis() {
+    echo -en "\033[?25l";
+}
+
+function cnorm() {
+    echo -en "\033[?12l\033[?25h";
+}
+
+function tputs() {
+    echo -en "\033[${1};${2}H";
+}
+
+function cursorpos() {
+    case $1 in
+        up)
+            i=0
+            while [ $((++i)) -lt $2 ]; do tput cuu1; done;;
+        
+        down)
+            i=0
+            while [ $((++i)) -lt $2 ]; do tput cud1; done;;
+        
+        left)
+            i=0
+            while [ $((++i)) -lt $2 ]; do tput cul1; done;;
+
+        right)
+            tput cuf $2;;            
+
+        col)
+            i=0
+            for ((i=0; i<=$2;i++)); do tput cuf1; done;;
+        pos)
+            tput cup $2 $3;;
+        *)
+            echo "Invalid option";;
+    esac
+}
+
+function draw() {
+    echo -en "\033%@";echo -en "\033(0";
+}
+
+function write() {
+    echo -en "\033(B";
+}
+
+function help_screen() {
+    # j k l m n o p q r s t u v w x
+    # ┘ ┐ ┌ └ ┼ ⎺ ⎻ ─ ⎼ ⎽ ├ ┤ ┴ ┬ │
+    # Help cols 80
+
+    if [ -z $1 ]; then
+        rows=7
+    else
+        rows=$1
+    fi
+
+    civis
+    draw
+    echo -e "${Grey}  lqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk"
+    echo -e "${Grey}  x                                                                                x"
+    echo -e "${Grey}  tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+    for ((i=0; i <= rows; i++)); do
+        echo -e "${Grey}  x                                                                                x"
+    done
+
+    if [ -z $2 ]; then
+        echo -e "${Grey}  mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj"
+    elif [ $2 == 1 ]; then
+        echo -e "${Grey}  tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+        echo -e "${Grey}  x                                                                                x"
+        echo -e "${Grey}  mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj"
+    else
+        echo -e "${Grey}  tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+        echo -e "${Grey}  x                                                                                x"
+        echo -e "${Grey}  tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+        for ((i=0; i <= $2; i++)); do
+            echo -e "${Grey}  x                                                                                x"
+        done
+        echo -e "${Grey}  mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj"
+    fi
+
+    write
+    cnorm
+}
+
+function help_screen_sm() {
+    if [ -z $1 ]; then
+        rows=7
+    else
+        rows=$1
+    fi
+
+    civis
+    draw
+    echo -e "${Grey} lqqqqqqqqqqqqqqqqqqqqqqqqqqqqqk"
+    for ((i=0; i <= rows; i++)); do
+        echo -e "${Grey} x                             x"
+    done
+
+    if [ -z $2 ]; then
+        echo -e "${Grey} mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj"
+    else
+        echo -e "${Grey} tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+        echo -e "${Grey} x                             x"
+        echo -e "${Grey} tqqqqqqqqqqqqqqqqqqqqqqqqqqqqqu"
+        for ((i=0; i <= $2; i++)); do
+            echo -e "${Grey}x                             x"
+        done
+        echo -e "${Grey} mqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj"
+    fi
+    write
+    cnorm
+}
+
+function draw_screen() {
+    # j k l m n o p q r s t u v w x
+    # ┘ ┐ ┌ └ ┼ ⎺ ⎻ ─ ⎼ ⎽ ├ ┤ ┴ ┬ │
+    # Help cols 80
+
+    if [ -z $1 ]; then
+        rows=7
+    else
+        rows=$1
+    fi
+
+    if [ -z $3 ]; then
+        cols=80
+    else
+        cols=$3
+    fi
+
+    civis
+    draw
+    echo -en "${Grey}  l"
+    for ((c=0; c <= $3; c++));do
+        echo -en "q"
+    done
+    echo -e "${Grey}k"
+
+    echo -en "${Grey}  x"
+    for ((c=0; c <= $3; c++));do
+        echo -en " "
+    done
+    echo -e "x"
+
+    echo -en "${Grey}  t"
+    for ((c=0; c <= $3; c++));do
+        echo -en "q"
+    done
+    echo -e "u"
+
+    for ((i=0; i <= rows; i++)); do
+        echo -en "${Grey}  x"
+        for ((c=0; c <= $3; c++));do
+            echo -en " "
+        done
+        echo -e "x"
+    done
+
+    if [ -z $2 ] || [ $2 == 0 ]; then
+        echo -en "${Grey}  m"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "j"
+    elif [ $2 == 1 ]; then
+        echo -en "${Grey}  t"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "u"
+
+        echo -en "${Grey}  x"
+        for ((c=0; c <= $3; c++));do
+            echo -en " "
+        done
+        echo -e "x"
+
+        echo -en "${Grey}  m"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "j"
+    else
+        echo -en "${Grey}  t"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "u"
+
+        echo -en "${Grey}  x"
+        for ((c=0; c <= $3; c++));do
+            echo -en " "
+        done
+        echo -e "x"
+
+        echo -en "${Grey}  t"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "u"
+
+        for ((i=0; i <= $2; i++)); do
+            echo -en "${Grey}  x"
+            for ((c=0; c <= $3; c++));do
+                echo -en " "
+            done
+            echo -e "x"
+        done
+        echo -en "${Grey}  m"
+        for ((c=0; c <= $3; c++));do
+            echo -en "q"
+        done
+        echo -e "j"
+    fi
+    
+    write
+    cnorm
+}

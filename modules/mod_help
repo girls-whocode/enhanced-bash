@@ -1,0 +1,72 @@
+#!/bin/bash
+# title			:BASHRC System
+# description	:The help system for BASHRC System
+# author		:Jessica Brown
+# date			:2019-12-20
+# version		:4
+# usage			:After install, just open a terminal
+# notes			:This script is self installing
+# bash_version	:4.1.5(1)-release
+# ==============================================================================
+# TODO:
+#   Need to make this dynamically generated as new modules are added to the module folder
+#   Vision: Have a function called <modulename>_help() it will contain a 1 liner and a
+#           full description. The one liner would be generated inside this file and the
+#           full description would be if they call that command with --help or (-h)
+
+function commands() {
+    help_screen 16 7
+    cursorpos up 32; cursorpos col 28; echo -e "${White}BASH SYSTEM HELP CENTER"
+    cursorpos down 3; cursorpos col 6; echo -e "${Aqua}up${White} - ${Silver}traverse up x directories"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}upto${White} - ${Silver}traverse up to a directory in your current path"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}jump${White} - ${Silver}traverse down to a directory in your current path"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}reload${White} - ${Silver}reload shell environment"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}history_stats${White} - ${Silver}returns the number of times a command was used"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}extract${White} - ${Silver}extract zip, tar, bz2, rar, gz, 7z, Z"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}add_alias${White} - ${Silver}add and activate an alias to the aliases file"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}d${White} - ${Silver}recalls the last 50 directories visited"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}bak${White} - ${Silver}backup and date a file in the ~/.backup directory"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}netinfo${White} - ${Silver}returns public IP address"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}dirsize${White} - ${Silver}show the directories sizes"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}color_sample${White} - ${Silver}returns all availabe colors with variable name"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}empty${White} - ${Silver}zero a file while perserving permissions"
+    cursorpos down 2; cursorpos col 6; echo -e "${White}Each command has ${Red}-h ${White}or ${Red}--help ${White}to display detailed help" # 55 Chars
+    cursorpos down 3; cursorpos col 6; echo -e "${White}KEYBOARD SHORTCUTS"
+    cursorpos down 2; cursorpos col 6; echo -e "${Aqua}F1${White} - ${Silver}Displays this help"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}F2${White} - ${Silver}Displays Weather and Calendar information"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}ALT-W${White} - ${Silver}Displays who is online information"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}ALT-V${White} - ${Silver}Displays distrobution and version information"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}ALT-R${White} - ${Silver}Reloads terminal environment"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}ALT-C${White} - ${Silver}clear_screens the terminal screen"
+    cursorpos down 1; cursorpos col 6; echo -e "${Aqua}CTRL-D${White} - ${Silver}Closes shell or terminates terminal"
+    cursorpos down 4
+}
+
+function under_construction() {
+    help_screen 26
+    cursorpos up 31; cursorpos col 30; echo -e "${White}HELP SYSTEM UNAVAILABLE" # 3 Chars
+    cursorpos down 3; cursorpos col 25; echo -e "${Grey}_"
+    cursorpos down 1; cursorpos col 24; echo -e "${Grey}/\`\\"
+    cursorpos down 1; cursorpos col 17; echo -e "${Maroon}_n   ${Grey}/\` , \`\\"
+    cursorpos down 1; cursorpos col 16; echo -e "${Maroon}|  |${Grey}/\` /\` \`\\ \`\\=========,________"
+    cursorpos down 1; cursorpos col 16; echo -e "${Maroon}| ${Grey}/\` /${RosyBrown};-----;${Grey}\ \`\\        \`\\      \`\\"
+    cursorpos down 1; cursorpos col 16; echo -e "${Grey}/\` /\` ${RosyBrown}||_|_|| ${Grey}\`\\ \`\\        \`\\      \`\\"
+    cursorpos down 1; cursorpos col 14; echo -e "${Grey}/\` /\`${Silver}=  ${RosyBrown}||_|_||  ${Silver}=${Grey}\`\\ \`\\________\`\\______\`\\"
+    cursorpos down 1; cursorpos col 12; echo -e "${Grey}/\`_/\`     '-----'     ${Grey}\`\\_\`\\-------;------|\""
+    cursorpos down 1; cursorpos col 13; echo -e "${White}\"| ${RosyBrown}.---.   ${RosyBrown}.---. ${Silver}= ${RosyBrown}.---. ${White}|  ${RosyBrown}.--.  ${White}|${Silver}=${RosyBrown}.--.${White} |"
+    cursorpos down 1; cursorpos col 13; echo -e "${White}| ${RosyBrown}|T_T|   ${RosyBrown}|T_T|   ${RosyBrown}|T_T| ${White}|  ${RosyBrown}|LI|  ${White}| ${RosyBrown}|LI|${White} |"
+    cursorpos down 1; cursorpos col 13; echo -e "${White}| ${RosyBrown}|L_I|${Silver}=  ${RosyBrown}|L_I|   ${RosyBrown}|L_I|${White} |${Silver}= ${RosyBrown}|LI|${White}  | ${RosyBrown}|LI|${White} |"
+    cursorpos down 1; cursorpos col 13; echo -e "${White}| ${RosyBrown}'---'   ${RosyBrown}'---' ${Grey}_.--._'${White} |  ${RosyBrown}'--' ${Silver}=| ${RosyBrown}'--'${White} |"
+    cursorpos down 1; cursorpos col 12; echo -e "${White}_|__${Silver}=${White}_____${Silver}=${White}___${Grey},-" _.._ "-;${White}_${Silver}=${White}______|_____${Silver}=${White}|_"
+    cursorpos down 1; cursorpos col 11; echo -e "${Grey}/_______________,-" __ "-._________T________\\"
+    cursorpos down 1; cursorpos col 12; echo -e "${White}|| ${Silver}= ${RosyBrown}.----.   ${White}|| !|LI|! ||  ${RosyBrown}.--.  ${White}| ${RosyBrown}.--. ${White}||"
+    cursorpos down 1; cursorpos col 12; echo -e "${White}||   ${RosyBrown}|LILI| ${Silver}= ${White}||  |  |  ||${Silver}= ${RosyBrown}|LI|  ${White}| ${RosyBrown}|LI|${Silver}=${White}||"
+    cursorpos down 1; cursorpos col 12; echo -e "${White}||${Silver}=  ${RosyBrown}|LILI|${Silver}= _${White}JL_ | '| _JL_ ${RosyBrown}|LI|  ${White}|${Silver}=${RosyBrown}|LI| ${White}||"
+    cursorpos down 1; cursorpos col 12; echo -e "${White}||  _${RosyBrown}'----' ${White}_|\"\"|_|__|_|\"\"| ${RosyBrown}'--' ${Silver}=${White}| ${RosyBrown}'--' ${White}||${Green}.--."
+    cursorpos down 1; cursorpos col 12; echo -e "${White}|;${Green}-' )TTTT(\` ') ${IndianRed}|======|${Green}  |(\`\`\`-TTTTTTTTTT(    )\""
+    cursorpos down 1; cursorpos col 9; echo -e "${Greem}\" \"\"(\`    )|(      )${IndianRed}|======|${Green}  (      )|||||||(      )"
+    cursorpos down 1; cursorpos col 9; echo -e "${Green}jgs  '-Y-\`\"\"\"'- Y-'\"${Silver}/      \\ ${Green}\"\"\"\`--Y-\`\"\"\"\"\"\"\"\"'-Y--'\""
+    cursorpos down 1; cursorpos col 9; echo -e "${Grey}^^^^^^^^^^^^^^^^^^^^        ^^^^^^^^^^^^^^^^^^^^^^^^^"
+    cursorpos down 2; cursorpos col 22; echo -e "${Red}Currently this detailed help is under construction."
+    cursorpos down 5
+}

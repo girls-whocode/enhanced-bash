@@ -1,0 +1,48 @@
+#!/bin/bash
+# title			:BASHRC System
+# description	:This is a start up script to make your bash experience useful
+# author		:Jessica Brown
+# date			:2020-01-25
+# version		:1.0.0
+# usage			:After install, just open a terminal
+# notes			:This script is self installing
+# bash_version	:4.1.5(1)-release
+# ==============================================================================
+# Some things to add to next release
+# Sort by (name, size, date) (asc, desc)
+# Ignore one or more of (KBMGTP)
+
+function dirsize () { # Finds directory sizes and lists them for the current directory
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        help_screen 7 12
+        cursorpos up 28; cursorpos col 27; echo -e "${White}Directory Size (version 1.0)"
+        cursorpos down 3; cursorpos col 4; echo -e "${Aqua}dirsize ${White}- ${Silver}Locates and calculates the size of each directory in"
+        cursorpos down 1; cursorpos col 4; echo -e "${Silver}your current directory sorted from smallest to largest."
+        cursorpos down 2; cursorpos col 4; echo -e "${Maroon}NOTICE: ${White}This does create a /tmp/list file that is removed after each"
+        cursorpos down 1; cursorpos col 4; echo -e "${White}successful execution. If a BREAK or EXIT other then 0, this file my not be"
+        cursorpos down 1; cursorpos col 4; echo -e "${White}automatically removed."
+        cursorpos down 3; cursorpos col 4; echo -e "${White}EXAMPLE"
+        cursorpos down 3; cursorpos col 4; echo -e "${Silver}$ ${White}dirsize"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}1.3M  ${Silver}PowerShell_Repo"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}1.7M	${Silver}.vs"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}7.0M	${Silver}WebBooks"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}8.2M	${Silver}HTML_Repo"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}45M   	${Silver}Ruby_Repo"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}165M	${Silver}VueJS_Repo"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}303M	${Silver}Joomla"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}329M	${Silver}Software_Development_Process"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}410M	${Silver}open-log-viewer"
+        cursorpos down 1; cursorpos col 4; echo -e "${Red}517M	${Silver}CSharp_Repo"
+        cursorpos down 4
+    else
+        du -shx * .[a-zA-Z0-9_]* 2> /dev/null | \
+        egrep '^ *[0-9.]*[PTGMKB]' | sort -n > /tmp/list
+        egrep '^ *[0-9.]*B' /tmp/list
+        egrep '^ *[0-9.]*K' /tmp/list
+        egrep '^ *[0-9.]*M' /tmp/list
+        egrep '^ *[0-9.]*G' /tmp/list
+        egrep '^ *[0-9.]*T' /tmp/list
+        egrep '^ *[0-9.]*P' /tmp/list
+        rm -rf /tmp/list
+    fi
+}
