@@ -1,22 +1,25 @@
 #!/bin/bash
 
-cd ${scriptPath}
-UPSTREAM=${1:-'@{u}'}
-LOCAL=$(git rev-parse @)
-REMOTE=$(git rev-parse "$UPSTREAM")
-BASE=$(git merge-base @ "$UPSTREAM")
+function chkUpdate() {
+    cd ${scriptPath}
+    UPSTREAM=${1:-'@{u}'}
+    LOCAL=$(git rev-parse @)
+    REMOTE=$(git rev-parse "$UPSTREAM")
+    BASE=$(git merge-base @ "$UPSTREAM")
 
-if [ $LOCAL = $REMOTE ]; then
-    echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[Enhanced Bash System up to date.]" >> ${logsLocation}/${logFile}
-elif [ $LOCAL = $BASE ]; then
-    echo "${bold}${Red}An update is available.${txtreset}"
-    git fetch -v &>>${logsLocation}/install.log
-    echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Enhanced Bash System updated to version ${bashsystemVersion} .]" >> ${logsLocation}/${logFile}
-elif [ $REMOTE = $BASE ]; then
-    git reset
-    git fetch -v &>>${logsLocation}/install.log
-else
-    echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[Update has been diverged.]" >> ${logsLocation}/${logFile}
-fi
+    if [ $LOCAL = $REMOTE ]; then
+        echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[Enhanced Bash System up to date.]" >> ${logsLocation}/${logFile}
+    elif [ $LOCAL = $BASE ]; then
+        echo "${bold}${Red}An update is available.${txtreset}"
+        git fetch -v &>>${logsLocation}/install.log
+        echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Enhanced Bash System updated to version ${bashsystemVersion} .]" >> ${logsLocation}/${logFile}
+        reload
+    elif [ $REMOTE = $BASE ]; then
+        git reset
+        git fetch -v &>>${logsLocation}/install.log
+    else
+        echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[Update has been diverged.]" >> ${logsLocation}/${logFile}
+    fi
 
-cd ${HOME}
+    cd ${HOME}
+}
