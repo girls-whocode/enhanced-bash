@@ -139,4 +139,3 @@ while [ $i -le $history_size ]; do
 done
 
 __preload
-chkUpdate

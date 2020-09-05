@@ -10,8 +10,10 @@
 # ==============================================================================
 
 # Check if an assigned editor has been defined in the .bashrc.
-if [[ $assignedEditor == "" ]]; then
-    assignedEditor="vim"
+if [ -z $editor ]; then
+	assignedEditor=$(which "vim")
+else
+	assignedEditor=$(which "$editor")
 fi
 
 # enable color support of ls and also add handy aliases
@@ -41,8 +43,9 @@ alias nano=$assignedEditor
 alias vi=$assignedEditor
 alias vim=$assignedEditor
 alias edit=$assignedEditor
-alias start="systemctl start"
-alias restart="systemctl restart"
-alias stop="systemctl stop"
-alias status="systemctl status"
+alias sysstart="systemctl start"
+alias sysrestart="systemctl restart"
+alias sysreload="systemctl reload"
+alias sysstop="systemctl stop"
+alias sysstatus="systemctl status"
 alias viewcode="highlight -O ansi --force "
