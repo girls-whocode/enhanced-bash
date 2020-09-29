@@ -43,6 +43,15 @@ function __preload() {
   # Define the session type as Local, then test at the end of the _preload
   SESSION_TYPE="LOCAL"
 
+  # Check to see if there is an active SSH connection and set the SESSION TYPE
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    SESSION_TYPE="SSH"
+  else
+    case $(ps -o comm= -p $PPID) in
+      sshd|*/sshd) SESSION_TYPE="SSH";;
+    esac
+  fi
+
   # make less more friendly for non-text input files, see lesspipe(1)
   [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -74,15 +83,6 @@ function __preload() {
           builtin cd "$@" # https://unix.stackexchange.com/a/366974/307359
           propose_dir_path
       }
-  fi
-
-  # Check to see if there is an active SSH connection and set the SESSION TYPE
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    SESSION_TYPE="SSH"
-  else
-    case $(ps -o comm= -p $PPID) in
-      sshd|*/sshd) SESSION_TYPE="SSH";;
-    esac
   fi
 
   cd ~

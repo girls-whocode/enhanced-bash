@@ -21,7 +21,7 @@ function netinfo () {
     else
         clear_screen
         draw_screen 11 0 130
-        
+
         ifcfg=/usr/sbin/ifconfig
         hwinf=/usr/sbin/hwinfo
         lynx=/usr/bin/lynx
@@ -51,7 +51,7 @@ function netinfo () {
         [ -x ${lynx} ] && exip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
         hostname=$(hostname)
         kernel=$(uname -mrs)
-        
+
         cursorpos up 16; cursorpos col 47; echo -e "${White}Network Information Panel (version 1.0)"
         cursorpos down 2; cursorpos col 4; echo -e "${Yellow}External IP address: ${Lime}${exip}"
         cursorpos up 2; cursorpos col 50; echo -e "${Yellow}Internal IP address: ${Lime}${iip}"

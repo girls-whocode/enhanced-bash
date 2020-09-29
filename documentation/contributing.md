@@ -9,7 +9,7 @@ If you would like to get involved, please email me and I will be happy to discus
 All contributions, developers, document writers, designers will have the approipate acknowledgement.
 
 ___
-[<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/icons/home.png" width="24" />](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md) [Home](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md)
+[<img src="./images/icons/home.png" width="24" />](documentation/home.md) [Home](documentation/home.md)
 ___
 
 ___

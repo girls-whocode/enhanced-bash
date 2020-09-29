@@ -19,7 +19,7 @@ archiveLocation="${HOME}/.backup"
 dirjumpfolder="${libLocation}/dirjump"
 directory_list="${libLocation}/dirjump/directory_list"
 last_dir_remove="${libLocation}/dirjump/last_dir_remove"
-installationLocation="${HOME}/.local/bin/enhanced-bash-system"
+installationLocation="${HOME}/.local/bin/enhanced-bash"
 
 if [ -f "${libLocation}/lib_utils" ]; then
 	source "${libLocation}/lib_utils"
@@ -39,7 +39,7 @@ done
 
 # Source each module in the modules folder
 if [ -d ${scriptPath}/modules ]; then
-	for module in ${scriptPath}/modules/mod_*; do 
+	for module in ${scriptPath}/modules/mod_*; do
 		if [ -f ${module} ]; then
 			source ${module}
 			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Loading ${module}]" >> ${logsLocation}/install.log
@@ -53,7 +53,7 @@ fi
 
 # Look for an overrides folder
 if [ -d ${scriptPath}/overrides ]; then
-    for overrides in ${scriptPath}/overrides/or_*; do 
+    for overrides in ${scriptPath}/overrides/or_*; do
         if [ -f ${overrides} ]; then
 			source ${overrides}
 			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Loading ${overrides}]" >> ${logsLocation}/install.log
@@ -85,11 +85,11 @@ if [[ $1 != "--force" ]]; then
 	echo -e ${txtReset} && exit
 fi
 
-# Create the installation folder (default is $HOME/.local/bin/enhanced-bash-system/)
+# Create the installation folder (default is $HOME/.local/bin/enhanced-bash/)
 read -p "$(echo -e ${White}Enter installation location ${Red}[${SteelBlue2}${installationLocation}${Red}]${Aqua}: ${txtReset})" installationLocation
 
 if [[ $installationLocation == "" ]]; then
-	installationLocation="${HOME}/.local/bin/enhanced-bash-system"
+	installationLocation="${HOME}/.local/bin/enhanced-bash"
 fi
 
 if [[ ! $installationLocation == "" ]] || [ ! -d $installationLocation ]; then
@@ -119,12 +119,12 @@ fi
 mv ~/.bashrc ~/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
-printf "case \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\t. ${installationLocation}/bash_system.sh;;\nesac\n" > ~/.bashrc
+printf "editor=\"nano\"\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\t. ${installationLocation}/bash_system.sh;;\nesac\n" > ~/.bashrc
 
 # Verify and install the following: git, curl, highlight
-cd ${libLocation}/has && sudo make install
-has git curl highlight 
-echo -e "${StealBlue2}To use many features of this program, install any programs that show and ${Red}x"
+# cd ${libLocation}/has && sudo make install
+# has git curl highlight 
+echo -e "${StealBlue2}To use many features of this program, install any programs that show and ${Red}x${txtReset}"
 
 # Create the new directory jump folder and files
 mkdir -p ${installationLocation}/lib/dirjump
@@ -132,6 +132,6 @@ touch ${installationLocation}/lib/dirjump/directory_list
 touch ${installationLocation}/lib/dirjump/last_dir_remove
 
 # Create the log-rotate conf file
-printf "${installationLocation}/logs/startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee /etc/logrotate.d/enhanced-bash
+echo "${installationLocation}/logs/startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee /etc/logrotate.d/enhanced-bash
 
 # Make a Success or Error banner with a pitiful self promotion link to the gitlab page.

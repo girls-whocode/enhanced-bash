@@ -2,10 +2,10 @@
 
 If you don’t know how to use a command i.e. you don’t know about its parameters and return type etc, then you can make use of the Help argument ```-h``` or ```--help``` after any command. By using one of these arguments after a command will show an overview of that command and any additional arguments that may be used or required. To use simply type the command whose usage you would like to find information from by using the terminal with ```-h``` or ```--–help``` after a space and press enter.
 
-<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/help_argument.png" />
+<img src="./images/help_argument.png" />
 
 ___
-[<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/icons/home.png" width="24" />](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md) [Home](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md)
+[<img src="./images/icons/home.png" width="24" />](home.md) [Home](home.md)
 ___
 
 ___

@@ -6,7 +6,7 @@ An alias is a word that you create to perform a command or multiple commands. Al
 
 ## Adding a new custom alias
 
-One of the modules built into this application is called mod_addalias.sh, this module gives you the ability to create and add custom aliases to the overrides folder. By default this file is named: or_bash_aliases.sh. See the help docs for the [Add Alias](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/modules/addalias.md) command for more information.
+One of the modules built into this application is called mod_addalias.sh, this module gives you the ability to create and add custom aliases to the overrides folder. By default this file is named: or_bash_aliases.sh. See the help docs for the [Add Alias](modules/addalias.md) command for more information.
 
 ## Removing a custom alias
 
@@ -48,7 +48,7 @@ By default, the built-in aliases are
 | viewcode | highlight -O ansi --force  | Colorize many types code and scripts. Highlight must be installed |
 
 ___
-[<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/icons/home.png" width="24" />](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.mdhelp-topics-menu) [Home](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md)
+[<img src="./images/icons/home.png" width="24" />](home.md) [Home](home.md)
 ___
 
 ___
