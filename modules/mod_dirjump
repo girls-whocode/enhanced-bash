@@ -9,6 +9,12 @@
 # bash_version	:4.1.5(1)-release
 # ==============================================================================
 
+dirjumpfolder=${libLocation}/dirjump/
+directory_list=${libLocation}/dirjump/directory_list
+last_dir_remove=${libLocation}/dirjump/last_dir_remove
+dirjump_command="d"
+history_size=15
+
 function last_del() {
 	time_del=`cat "$last_dir_remove"`
 	curr_time=`date +%s`

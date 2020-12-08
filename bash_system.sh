@@ -9,30 +9,31 @@
 # bash_version	:4.1.5(1)-release
 # ==============================================================================
 # TODO:
-#	1. Right now it is check if the directory extists then files should be expected
-#	   this should change to check for files
-#	2. Check screen width for small screens (like cell phones)
+#	1. Currently it checks if the directory extists then files should be expected
+#	   this should change to check for files instead
+#	2. Check screen width for small screens (like cell phones) with terminal
+#	3. dirjump needs to become a module, not a library.
+#	4. Mixture of dirjump variables located in this file, they should be moved to
+#	   the dirjump module.
+#	5. Looking over this code, it looks as if the lib_utils library is loaded twice
+#	6. Clean up script for easier to find and read, this should be just a controller
+#	   to load each of the libraries, modules and overrides.
+#	7. Variables should be loaded from a library file, except path locations
+#	8. Create a config file for users to easily change custom variables
 
-# SCRIPTNAME
-# ------------------------------------------------------
-# Will return the name of the script being run
-# ------------------------------------------------------
 scriptPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 libLocation="${scriptPath}/lib"
 modLocation="${scriptPath}/modules"
 orLocation="${scriptPath}/overrides"
 thmLocation="${scriptPath}/themes"
 logsLocation="${scriptPath}/logs"
+userHomeLocation=$( getent passwd "$USER" | cut -d: -f6 )
+archiveLocation="${scriptPath}/.backup"
+
 logFile="startup.log"
-archiveLocation=$(getent passwd "$USER" | cut -d: -f6)"/.backup"
-dirjumpfolder=${libLocation}/dirjump/
-directory_list=${libLocation}/dirjump/directory_list
-last_dir_remove=${libLocation}/dirjump/last_dir_remove
+
 bashsystemVersion="4.0.1 l2m1"
 prompt_theme="pureblack"
-
-dirjump_command="d"
-history_size=15
 
 # TIMESTAMPS
 # ------------------------------------------------------
