@@ -13,8 +13,38 @@
   #
   # * 2015-01-02 - v1.0.0  - First Creation
   # * 2016-02-10 - v1.1.1  - Minor changes to satisfy Shellcheck
+  # * 2020-12-09 - v1.1.2  - Moved time variables to this file
+  #                          Added BASH versioning
+  #                          Moved thisHost variable to this file
   #
   # ##################################################
+
+# THISHOST
+# ------------------------------------------------------
+# Will print the current hostname of the computer the script
+# is being run on.
+# ------------------------------------------------------
+thisHost=$(hostname)
+
+# BASHSYSTEMVERSION
+# ------------------------------------------------------
+# Version this script is tested on
+# ------------------------------------------------------
+bashsystemVersion=("5.0.17(1)-release" "4.0.1 l2m1")
+currentBasgVersion=$BASH_VERSION
+
+# TIMESTAMPS
+# ------------------------------------------------------
+# Prints the current date and time in a variety of formats:
+# ------------------------------------------------------
+now=$(LC_ALL=C date +"%m-%d-%Y %r")        				# Returns: 06-14-2015 10:34:40 PM
+logtime=$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")			# Returns: 2015-06-14 20:34:40
+datestamp=$(LC_ALL=C date +%Y-%m-%d)       				# Returns: 2015-06-14
+hourstamp=$(LC_ALL=C date +%r)             				# Returns: 10:34:40 PM
+timestamp=$(LC_ALL=C date +%Y%m%d_%H%M%S)  				# Returns: 20150614_223440
+today=$(LC_ALL=C date +"%m-%d-%Y")         				# Returns: 06-14-2015
+longdate=$(LC_ALL=C date +"%a, %d %b %Y %H:%M:%S %z")	# Returns: Sun, 10 Jan 2016 20:47:53 -0500
+gmtdate=$(LC_ALL=C date -u -R | sed 's/\+0000/GMT/')	# Returns: Wed, 13 Jan 2016 15:55:29 GMT
 
 function _alert() {
   if [ "${1}" = "emergency" ]; then local color="${bold}${Red}"; fi

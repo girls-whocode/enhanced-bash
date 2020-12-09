@@ -15,6 +15,20 @@ last_dir_remove=${libLocation}/dirjump/last_dir_remove
 dirjump_command="d"
 history_size=15
 
+# If you already use the number 0-9 as aliases,
+# feel free to comment out or delete these.
+# You can still use <dirjump_command> <dir path number>
+# to jump through the dir history
+# Source: https://unix.stackexchange.com/a/203160/307359
+i=0
+
+alias "$dirjump_command"="dirjump"
+
+while [ $i -le $history_size ]; do
+	alias $i="$dirjump_command $i"
+	i=`expr $i + 1`
+done
+
 function last_del() {
 	time_del=`cat "$last_dir_remove"`
 	curr_time=`date +%s`

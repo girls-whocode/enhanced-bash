@@ -9,6 +9,15 @@
 # bash_version	:4.1.5(1)-release
 # ==============================================================================
 
+bind -x '"\ec":"clear"' # Alt-C clears screen
+bind -x '"\er":"reload"' # Alt-R reloads environment
+bind -x '"\ev":"ver"' # Alt-V show Distro and version information
+bind -x '"\ew":"who"' # Alt-W show who information
+bind -x '"\eOP":"commands"' # F1 will display help system
+bind -x '"\eh":"commands"' # Alternitive (Alt-H) for help if F1 is not available
+bind -x '"\eOQ":"splashscreen"' # F2 will display the spashscreen
+bind -x '"\es":"splashscreen"' # Alternitive (Alt-S) for splashscreen if F2 is not available
+
 # Check if an assigned editor has been defined in the .bashrc.
 if [ -z $editor ]; then
 	assignedEditor=$(which "vim")
