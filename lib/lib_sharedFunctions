@@ -21,75 +21,6 @@
 # Non destructive exit for when script exits naturally.
 # Usage: Add this function at the end of every script
 
-function __preload() {
-  # don't put duplicate lines or lines starting with space in the history.
-  HISTCONTROL=ignoreboth
-
-  # append to the history file, don't overwrite it
-  shopt -s histappend
-
-  # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-  HISTSIZE=10000
-  HISTFILESIZE=200000
-
-  # check the window size after each command and, if necessary,
-  # update the values of LINES and COLUMNS.
-  shopt -s checkwinsize
-
-  # If set, the pattern "**" used in a pathname expansion context will
-  # match all files and zero or more directories and subdirectories.
-  shopt -s globstar
-
-  # Define the session type as Local, then test at the end of the _preload
-  SESSION_TYPE="LOCAL"
-
-  # Check to see if there is an active SSH connection and set the SESSION TYPE
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    SESSION_TYPE="SSH"
-  else
-    case $(ps -o comm= -p $PPID) in
-      sshd|*/sshd) SESSION_TYPE="SSH";;
-    esac
-  fi
-
-  # make less more friendly for non-text input files, see lesspipe(1)
-  [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-  # set a fancy prompt (non-color, unless we know we "want" color)
-  case "$TERM" in
-      xterm-color|*-256color) color_prompt=yes;;
-  esac
-
-  [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-  # enable programmable completion features (you don't need to enable
-  # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-  # sources /etc/bash.bashrc).
-  if ! shopt -oq posix; then
-      if [ -f /usr/share/bash-completion/bash_completion ]; then
-          . /usr/share/bash-completion/bash_completion
-      elif [ -f /etc/bash_completion ]; then
-          . /etc/bash_completion
-      fi
-  fi
-
-  # If using Zsh
-  if [ -n "$ZSH_VERSION" ]; then
-      # Source: https://stackoverflow.com/a/3964198/9157799
-      chpwd_functions=(${chpwd_functions[@]} propose_dir_path)
-  else
-      cd()
-      {
-          builtin cd "$@" # https://unix.stackexchange.com/a/366974/307359
-          propose_dir_path
-      }
-  fi
-
-  cd ~
-  echo "[$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")]:[SUCCESS]:[System Preload completed]:[LOADED]" >> ${logsLocation}/startup.log
-  echo -e "$Aqua F1$White -$Silver Displays available commands and help"
-}
-
 function safeExit() {
   # Delete temp files, if any
   if is_dir "${tmpDir}"; then
@@ -132,8 +63,9 @@ function showMatches() {
 	fi
 }
 
-function keycapture() { # Capture the escape seq. code for pressed key
-    sed -n l
+function keycapture() {
+  # Capture the escape seq. code for pressed key
+  sed -n l
 }
 
 function chk_root(){
@@ -151,78 +83,78 @@ function readFile() {
   done < "$1"
 }
 
-# Escape a string
-# ------------------------------------------------------
-# usage: var=$(escape "String")
-# ------------------------------------------------------
 function escape() {
   echo "${@}" | sed 's/[]\.|$(){}?+*^]/\\&/g';
 }
 
-# needSudo
-# ------------------------------------------------------
-# If a script needs sudo access, call this function which
-# requests sudo access and then keeps it alive.
-# ------------------------------------------------------
 function needSudo() {
+  # needSudo
+  # ------------------------------------------------------
+  # If a script needs sudo access, call this function which
+  # requests sudo access and then keeps it alive.
+  # ------------------------------------------------------
+
   # Update existing sudo time stamp if set, otherwise do nothing.
   sudo -v
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 }
 
-# convertsecs
-# ------------------------------------------------------
-# Convert Seconds to human readable time
-#
-# To use this, pass a number (seconds) into the function as this:
-# print "$(convertsecs $TOTALTIME)"
-#
-# To compute the time it takes a script to run use tag the start and end times with
-#   STARTTIME=$(date +"%s")
-#   ENDTIME=$(date +"%s")
-#   TOTALTIME=$(($ENDTIME-$STARTTIME))
-# ------------------------------------------------------
 function convertsecs() {
+  # convertsecs
+  # ------------------------------------------------------
+  # Convert Seconds to human readable time
+  #
+  # To use this, pass a number (seconds) into the function as this:
+  # print "$(convertsecs $TOTALTIME)"
+  #
+  # To compute the time it takes a script to run use tag the start and end times with
+  #   STARTTIME=$(date +"%s")
+  #   ENDTIME=$(date +"%s")
+  #   TOTALTIME=$(($ENDTIME-$STARTTIME))
+  # ------------------------------------------------------
+
   ((h=${1}/3600))
   ((m=(${1}%3600)/60))
   ((s=${1}%60))
   printf "%02d:%02d:%02d\n" $h $m $s
 }
 
-# Join
-# ----------------------------------------------
-# This function joins items together with a user specified separator
-# Taken whole cloth from: http://stackoverflow.com/questions/1527049/bash-join-elements-of-an-array
-#
-# Usage:
-#   join , a "b c" d #a,b c,d
-#   join / var local tmp #var/local/tmp
-#   join , "${FOO[@]}" #a,b,c
-# ----------------------------------------------
 function join() {
+  # Join
+  # ----------------------------------------------
+  # This function joins items together with a user specified separator
+  # Taken whole cloth from: 
+  #   http://stackoverflow.com/questions/1527049/bash-join-elements-of-an-array
+  #
+  # Usage:
+  #   join , a "b c" d #a,b c,d
+  #   join / var local tmp #var/local/tmp
+  #   join , "${FOO[@]}" #a,b,c
+  # ----------------------------------------------
+
   local IFS="${1}";
   shift;
   echo "${*}";
 }
 
-# SEEKING CONFIRMATION
-# ------------------------------------------------------
-# Asks questions of a user and then does something with the answer.
-# y/n are the only possible answers.
-#
-# USAGE:
-# seek_confirmation "Ask a question"
-# if is_confirmed; then
-#   some action
-# else
-#   some other action
-# fi
-#
-# Credt: https://github.com/kevva/dotfiles
-# ------------------------------------------------------
-
-# Ask the question
 function seek_confirmation() {
+  # SEEKING CONFIRMATION
+  # ------------------------------------------------------
+  # Asks questions of a user and then does something with the answer.
+  # y/n are the only possible answers.
+  #
+  # USAGE:
+  # seek_confirmation "Ask a question"
+  # if is_confirmed; then
+  #   some action
+  # else
+  #   some other action
+  # fi
+  #
+  # Credt: https://github.com/kevva/dotfiles
+  # ------------------------------------------------------
+
+  # Ask the question
   # echo ""
   input "$@"
   if "${force}"; then
@@ -233,8 +165,8 @@ function seek_confirmation() {
   fi
 }
 
-# Test whether the result of an 'ask' is a confirmation
 function is_confirmed() {
+  # Test whether the result of an 'ask' is a confirmation
   if "${force}"; then
     return 0
   else
@@ -256,12 +188,13 @@ function is_not_confirmed() {
   fi
 }
 
-# Skip something
-# ------------------------------------------------------
-# Offer the user a chance to skip something.
-# Credit: https://github.com/cowboy/dotfiles
-# ------------------------------------------------------
 function skip() {
+  # Skip something
+  # ------------------------------------------------------
+  # Offer the user a chance to skip something.
+  # Credit: https://github.com/cowboy/dotfiles
+  # ------------------------------------------------------
+
   REPLY=noskip
   read -t 5 -n 1 -s -p "${bold}To skip, press ${underline}X${reset}${bold} within 5 seconds.${reset}"
   if [[ "$REPLY" =~ ^[Xx]$ ]]; then
@@ -271,73 +204,6 @@ function skip() {
     notice "  Continuing..."
     return 1
   fi
-}
-
-# unmountDrive
-# ------------------------------------------------------
-# If an AFP drive is mounted as part of a script, this
-# will unmount the volume.  This will only work on Macs.
-# ------------------------------------------------------
-function unmountDrive() {
-  if [ -d "$1" ]; then
-    diskutil unmount "$1"
-  fi
-}
-
-# help
-# ------------------------------------------------------
-# Prints help for a script when invoked from the command
-# line.  Typically via '-h'.  If additional flags or help
-# text is available in the script they will be printed
-# in the '$usage' variable.
-# ------------------------------------------------------
-function mod_help () {
-  echo "" 1>&2
-  input "   $@" 1>&2
-  if [ -n "${usage}" ]; then # print usage information if available
-    echo "   ${usage}" 1>&2
-  fi
-  echo "" 1>&2
-  exit 1
-}
-
-# Dependencies
-# -----------------------------------
-# Arrays containing package dependencies needed to execute this script.
-# The script will fail if dependencies are not installed.  For Mac users,
-# most dependencies can be installed automatically using the package
-# manager 'Homebrew'.
-# Usage in script:  $ homebrewDependencies=(package1 package2)
-# -----------------------------------
-function checkDependencies() {
-  saveIFS=$IFS
-  IFS=$' \n\t'
-  if [ -n "${homebrewDependencies}" ]; then
-    LISTINSTALLED="brew list"
-    INSTALLCOMMAND="brew install"
-    RECIPES=("${homebrewDependencies[@]}")
-    # Invoke functions from setupScriptFunctions.sh
-    hasHomebrew
-    doInstall
-  fi
-  if [ -n "$caskDependencies" ]; then
-    LISTINSTALLED="brew cask list"
-    INSTALLCOMMAND="brew cask install --appdir=/Applications"
-    RECIPES=("${caskDependencies[@]}")
-
-    # Invoke functions from setupScriptFunctions.sh
-    hasHomebrew
-    hasCasks
-    doInstall
-  fi
-  if [ -n "$gemDependencies" ]; then
-    LISTINSTALLED="gem list | awk '{print $1}'"
-    INSTALLCOMMAND="gem install"
-    RECIPES=("${gemDependencies[@]}")
-    # Invoke functions from setupScriptFunctions.sh
-    doInstall
-  fi
-  IFS=$saveIFS
 }
 
 function pauseScript() {
@@ -421,75 +287,6 @@ function squeeze_lines() {
     # </doc:squeeze_lines> }}}
 
     sed '/^[[:space:]]\+$/s/.*//g' | cat -s | trim_lines
-}
-
-function progressBar-old() {
-  # progressBar
-  # -----------------------------------
-  # Prints a progress bar within a for/while loop.
-  # To use this function you must pass the total number of
-  # times the loop will run to the function.
-  #
-  # usage:
-  #   for number in $(seq 0 100); do
-  #     sleep 1
-  #     progressBar 100
-  #   done
-  # -----------------------------------
-  if [[ "${quiet}" = "true" ]] || [ "${quiet}" == "1" ]; then
-    return
-  fi
-
-  local width
-  width=30
-  bar_char="#"
-
-  # Don't run this function when scripts are running in verbose mode
-  if ${verbose}; then return; fi
-
-  # Reset the count
-  if [ -z "${progressBarProgress}" ]; then
-    progressBarProgress=0
-  fi
-
-  # Do nothing if the output is not a terminal
-  if [ ! -t 1 ]; then
-      echo "Output is not a terminal" 1>&2
-      return
-  fi
-  # Hide the cursor
-    tput civis
-    trap 'tput cnorm; exit 1' SIGINT
-
-  if [ ! "${progressBarProgress}" -eq $(( $1 - 1 )) ]; then
-    # Compute the percentage.
-    perc=$(( progressBarProgress * 100 / $1 ))
-    # Compute the number of blocks to represent the percentage.
-    num=$(( progressBarProgress * width / $1 ))
-    # Create the progress bar string.
-    bar=
-    if [ ${num} -gt 0 ]; then
-        bar=$(printf "%0.s${bar_char}" $(seq 1 ${num}))
-    fi
-    # Print the progress bar.
-    progressBarLine=$(printf "%s [%-${width}s] (%d%%)" "Running Process" "${bar}" "${perc}")
-    echo -en "${progressBarLine}\r"
-    progressBarProgress=$(( progressBarProgress + 1 ))
-  else
-    # Clear the progress bar when complete
-    echo -ne "${width}%\033[0K\r"
-    unset progressBarProgress
-  fi
-
-  tput cnorm
-}
-
-# example: for x in {1..100}; do progressBar "$x" still working...; sleep .1; done; echo
-function progressBar() {
-    local w=80 p=$1; shift
-    printf -v dots "%*s" "$(( $p*$w/100 ))" "";
-    dots=${dots// /.};
-    printf "\r\e[K ${Lime}|${White}%-*s${Lime}| ${Red}%3d ${White}%% ${txtReset}%s" "$w" "$dots" "$p" "$*"; 
 }
 
 function htmlDecode() {
@@ -940,7 +737,8 @@ function draw_screen() {
     cnorm
 }
 
-function readablesize() { # Convert to a readable size
+function readablesize() { 
+  # Convert to a readable size
 	if [ $1 -ge 1048576 ]; then
 		echo "$(scriptbc -p 2 $1 / 1048576)GB"
 	elif [ $1 -ge 1024 ]; then
@@ -965,4 +763,77 @@ quit
 EOF
 
 	return 0
+}
+
+function __preload() {
+  # don't put duplicate lines or lines starting with space in the history.
+  if [ ${historyControl} == "" ]; then
+    HISTCONTROL=ignoreboth
+  else
+    HISTCONTROL=${historyControl}
+  fi
+
+  # append to the history file, don't overwrite it
+  if [ ${historyControl} == "" ]; then
+    shopt -s histappend
+  else
+    shopt -s ${historyAppend}
+  fi
+
+  # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+  HISTSIZE=${historySize}
+  HISTFILESIZE=${historyFileSize}
+
+  # check the window size after each command and, if necessary,
+  # update the values of LINES and COLUMNS.
+  shopt -s checkwinsize
+
+  # If set, the pattern "**" used in a pathname expansion context will
+  # match all files and zero or more directories and subdirectories.
+  shopt -s globstar
+
+  # Define the session type as Local, then test at the end of the _preload
+  SESSION_TYPE="LOCAL"
+
+  # Check to see if there is an active SSH connection and set the SESSION TYPE
+  if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+    SESSION_TYPE="SSH"
+  fi
+
+  # make less more friendly for non-text input files, see lesspipe(1)
+  [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+  # set a fancy prompt (non-color, unless we know we "want" color)
+  case "$TERM" in
+      xterm-color|*-256color) color_prompt=yes;;
+  esac
+
+  [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+  # enable programmable completion features (you don't need to enable
+  # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+  # sources /etc/bash.bashrc).
+  if ! shopt -oq posix; then
+      if [ -f /usr/share/bash-completion/bash_completion ]; then
+          . /usr/share/bash-completion/bash_completion
+      elif [ -f /etc/bash_completion ]; then
+          . /etc/bash_completion
+      fi
+  fi
+
+  # If using Zsh
+  if [ -n "$ZSH_VERSION" ]; then
+      # Source: https://stackoverflow.com/a/3964198/9157799
+      chpwd_functions=(${chpwd_functions[@]} propose_dir_path)
+  else
+      cd()
+      {
+          builtin cd "$@" # https://unix.stackexchange.com/a/366974/307359
+          propose_dir_path
+      }
+  fi
+
+  cd ~
+  echo "[$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")]:[SUCCESS]:[System Preload completed]:[LOADED]" >> ${logsLocation}/startup.log
+  echo -e "$Aqua F1$White -$Silver Displays available commands and help"
 }

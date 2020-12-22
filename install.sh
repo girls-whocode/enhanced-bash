@@ -7,66 +7,64 @@
 # notes			    :This install may not work on all systems, please try to install manually!
 # bash_version	    :4.4.19(1)-release
 # ==============================================================================
-version="1.1.0"
+#	1.2.0
+#		New bash.conf file being added with questions to fill
+#		Modified all path folders to respect installation location versus install from location
+
+# Setup temp variables to define base locations
+version="1.2.0"
 thisHost="$(hostname)"
 scriptName="$(basename ${0})" # Set Script Name variable
 scriptBasename="$(basename ${scriptName} .sh)" # Strips '.sh' from scriptName
 scriptPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-libLocation="${scriptPath}/lib"
-modLocation="${scriptPath}/modules"
-logsLocation="${scriptPath}/logs"
-archiveLocation="${HOME}/.backup"
-dirjumpfolder="${libLocation}/dirjump"
-directory_list="${libLocation}/dirjump/directory_list"
-last_dir_remove="${libLocation}/dirjump/last_dir_remove"
-installationLocation="${HOME}/.local/bin/enhanced-bash"
 
-if [ -f "${libLocation}/lib_utils" ]; then
-	source "${libLocation}/lib_utils"
-else
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Failed referencing the file \"lib_util\". Exiting.]" >> ${logsLocation}/install.log
-fi
+source "${scriptLocation}${dirSeperator}log_system.sh"
+source "${scriptPath}/bash.conf"
 
-# Source each library file in the lib folder
-for library in ${scriptPath}/lib/lib_*; do
-	if [ -f ${library} ]; then
-		source ${library} 
-		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Loading ${library}]" >> ${logsLocation}/install.log
-	else
-		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Loading ${library}]" >> ${logsLocation}/install.log
-	fi
+# BASHSYSTEMVERSION
+# ------------------------------------------------------
+# Version this script is tested on
+# ------------------------------------------------------
+bashsystemVersion=("5.0.17(1)-release" "4.0.1 l2m1")
+currentBasgVersion=$BASH_VERSION
+
+# TIMESTAMPS
+# ------------------------------------------------------
+# Prints the current date and time in a variety of formats:
+# ------------------------------------------------------
+now=$(LC_ALL=C date +"%m-%d-%Y %r")        				# Returns: 06-14-2015 10:34:40 PM
+logtime=$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")			# Returns: 2015-06-14 20:34:40
+datestamp=$(LC_ALL=C date +"%Y-%m-%d")       				# Returns: 2015-06-14
+hourstamp=$(LC_ALL=C date +"%r")             				# Returns: 10:34:40 PM
+timestamp=$(LC_ALL=C date +"%Y%m%d_%H%M%S")  				# Returns: 20150614_223440
+today=$(LC_ALL=C date +"%m-%d-%Y")         				# Returns: 06-14-2015
+longdate=$(LC_ALL=C date +"%a, %d %b %Y %H:%M:%S %z")	# Returns: Sun, 10 Jan 2016 20:47:53 -0500
+gmtdate=$(LC_ALL=C date -u -R | sed 's/\+0000/GMT/')	# Returns: Wed, 13 Jan 2016 15:55:29 GMT
+
+libInstallLocation="${scriptPath}${dirSeperator}${libSubPath}"
+modInstallLocation="${scriptPath}${dirSeperator}${modSubPath}"
+logInstallsLocation="${scriptPath}${dirSeperator}"
+overridesInstallLocation="${scriptPath}${dirSeperator}${overrideSubPath}"
+themesInstallLocation="${scriptPath}${dirSeperator}${themeSubPath}"
+archiveInstallLocation="${HOME}${dirSeperator}${archiveSubPath}"
+
+dirJumpFolder="${libLocation}${dirSeperator}${dirJumpPath}"
+directory_list="${dirjumpfolder}${dirSeperator}${dirListFile}"
+last_dir_remove="${dirjumpfolder}${dirSeperator}${dirLastRemoveFile}"
+
+defaultInstallationLocation="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
+defaultInstallDirectories=("${libSubPath}" "${modSubPath}" "${logsSubPath}" "${overridesInstallLocation}" "${archiveSubPath}" "${dirJumpPath}" "${installationSubPath}")
+
+defaultSourceLocations=("${libInstallLocation}" "${modInstallLocation}" "${overridesInstallLocation}" "${themesInstallLocation}")
+
+for folder in ${defaultSourceLocations[*]}; do
+	for file in ${folder}/*; do
+		source ${file}
+		success "[Loading ${file}]" # >> ${logInstallsLocation}/install.log
+	done
 done
 
-# Source each module in the modules folder
-if [ -d ${scriptPath}/modules ]; then
-	for module in ${scriptPath}/modules/mod_*; do
-		if [ -f ${module} ]; then
-			source ${module}
-			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Loading ${module}]" >> ${logsLocation}/install.log
-		else
-			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Loading ${module}]" >> ${logsLocation}/install.log
-		fi
-	done
-else
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[No modules to load]" >> ${logsLocation}/install.log
-fi
-
-# Look for an overrides folder
-if [ -d ${scriptPath}/overrides ]; then
-    for overrides in ${scriptPath}/overrides/or_*; do
-        if [ -f ${overrides} ]; then
-			source ${overrides}
-			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Loading ${overrides}]" >> ${logsLocation}/install.log
-		else
-			echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Loading ${overrides}]" >> ${logsLocation}/install.log
-		fi
-    done
-else
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[INFO]:[No overides to load]" >> ${logsLocation}/install.log
-fi
-
-if [[ $1 != "--force" ]]; then
-	clear
+if [[ $1 != "--help" ]]; then
 	echo -e "${Red}Notice: ${White}This install script is still under construction, ${Red} DO NOT USE!${txtReset}"
 	echo -e "${Silver}There are many things that are not currently completed. Follow these 10 steps to install this program:${txtReset}"
 	echo -e "${DeepPink8}Use the ${Silver}--force ${DeepPink8}to force the install and hopfully it won't break your system."
@@ -86,40 +84,51 @@ if [[ $1 != "--force" ]]; then
 fi
 
 # Create the installation folder (default is $HOME/.local/bin/enhanced-bash/)
-read -p "$(echo -e ${White}Enter installation location ${Red}[${SteelBlue2}${installationLocation}${Red}]${Aqua}: ${txtReset})" installationLocation
+read -p "$(echo -e ${White}Enter installation location ${Red}[${SteelBlue2}${defaultInstallDirectories}${Red}]${Aqua}: ${txtReset})" defaultInstallDirectories
 
-if [[ $installationLocation == "" ]]; then
-	installationLocation="${HOME}/.local/bin/enhanced-bash"
+if [[ $defaultInstallDirectories == "" ]]; then
+	defaultInstallDirectories="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
 fi
 
-if [[ ! $installationLocation == "" ]] || [ ! -d $installationLocation ]; then
-	errorMsg="$(mkdir -p $installationLocation 2>&1)"
+for installDirectory in ${installDirectories[*]}; do
+	if [ ! -d ${defaultInstallDirectories}${dirSeperator}${installDirectory} ]; then
+		mkdir -p ${defaultInstallDirectories}${dirSeperator}${installDirectory}
+		success "[Creating directory ${defaultInstallDirectories}${dirSeperator}${installDirectory}]"
+	else
+		# Create uninstall script
+	fi
+done
+
+exit 0
+
+if [[ ! $defaultInstallDirectories == "" ]] || [ ! -d $defaultInstallDirectories ]; then
+	errorMsg="$(mkdir -p $defaultInstallDirectories 2>&1)"
 
 	if [ "$errorMsg" = "" ]; then
-		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Created installation folder ${installationLocation}]" >> ${logsLocation}/install.log
+		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[Created installation folder ${defaultInstallDirectories}]" >> ${logInstallsLocation}/install.log
 	else
 		error "${errorMsg}."
-		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Failed installation folder ${errorMsg}]" >> ${logsLocation}/install.log
+		echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Failed installation folder ${errorMsg}]" >> ${logInstallsLocation}/install.log
     fi
 else
 	error "${errorMsg}."
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Failed installation folder ${errorMsg}]" >> ${logsLocation}/install.log
+	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Failed installation folder ${errorMsg}]" >> ${logInstallsLocation}/install.log
 fi
 
 # Copy all of the files to the new folder and remove the install.sh script
-if [ -d $installationLocation ]; then
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder found at ${installationLocation}]" >> ${logsLocation}/install.log
-	cp -r $scriptPath/* $installationLocation/
-	rm $installationLocation/install.sh
+if [ -d $defaultInstallDirectories ]; then
+	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder found at ${defaultInstallDirectories}]" >> ${logInstallsLocation}/install.log
+	cp -r $scriptPath/* $defaultInstallDirectories/
+	rm $defaultInstallDirectories/install.sh
 else
-	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Installation folder was not found]" >> ${logsLocation}/install.log
+	echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[ERROR]:[Installation folder was not found]" >> ${logInstallsLocation}/install.log
 fi
 
 # Rename the current .bashrc to .bashrc-$timestamp-EBS
 mv ~/.bashrc ~/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
-printf "editor=\"nano\"\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\t. ${installationLocation}/bash_system.sh;;\nesac\n" > ~/.bashrc
+printf "editor=\"nano\"\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\t. ${defaultInstallDirectories}/bash_system.sh;;\nesac\n" > ~/.bashrc
 
 # Verify and install the following: git, curl, highlight
 # cd ${libLocation}/has && sudo make install
@@ -127,11 +136,11 @@ printf "editor=\"nano\"\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\
 echo -e "${StealBlue2}To use many features of this program, install any programs that show and ${Red}x${txtReset}"
 
 # Create the new directory jump folder and files
-mkdir -p ${installationLocation}/lib/dirjump
-touch ${installationLocation}/lib/dirjump/directory_list
-touch ${installationLocation}/lib/dirjump/last_dir_remove
+mkdir -p ${defaultInstallDirectories}/lib/dirjump
+touch ${defaultInstallDirectories}/lib/dirjump/directory_list
+touch ${defaultInstallDirectories}/lib/dirjump/last_dir_remove
 
 # Create the log-rotate conf file
-echo "${installationLocation}/logs/startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee /etc/logrotate.d/enhanced-bash
+echo "${defaultInstallDirectories}/logs/startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee /etc/logrotate.d/enhanced-bash
 
 # Make a Success or Error banner with a pitiful self promotion link to the gitlab page.

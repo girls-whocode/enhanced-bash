@@ -3,37 +3,44 @@
 # description	:This is a startup script to make your bash experience useful
 # author		:Jessica Brown
 # date			:2019-12-20
-# version		:4
+# version		:4.1
 # usage			:After install, just open a terminal
 # notes			:This script is self installing
 # bash_version	:4.1.5(1)-release
 # ==============================================================================
+# updated   :2020-12-21
 
-bind -x '"\ec":"clear"' # Alt-C clears screen
-bind -x '"\er":"reload"' # Alt-R reloads environment
-bind -x '"\ev":"ver"' # Alt-V show Distro and version information
-bind -x '"\ew":"who"' # Alt-W show who information
-bind -x '"\eOP":"commands"' # F1 will display help system
-bind -x '"\eh":"commands"' # Alternitive (Alt-H) for help if F1 is not available
-bind -x '"\eOQ":"splashscreen"' # F2 will display the spashscreen
-bind -x '"\es":"splashscreen"' # Alternitive (Alt-S) for splashscreen if F2 is not available
+# Keyboard Binding
+bind -x '"'${kbClear}'":"clear && echo ''"'
+bind -x '"'${kbReload}'":"reload"'
+bind -x '"'${kbVersion}'":"ver"'
+bind -x '"'${kbWhoIs}'":"who"'
+bind -x '"'${kbHelpFKey}'":"commands"'
+bind -x '"'${kbHelp}'":"commands"'
+bind -x '"'${kbSpashscreenFKey}'":"splashscreen"'
+bind -x '"'${kbSpashscreen}'":"splashscreen"'
+bind -x '"'${kbDirJump}'":"dirjump"'
 
 # Check if an assigned editor has been defined in the .bashrc.
 if [ -z $editor ]; then
 	assignedEditor=$(which "vim")
 else
-	assignedEditor=$(which "$editor")
+	if [[ $(which "$editor") ]]; then
+		export assignedEditor=$(which "$editor")
+	else
+		export assignedEditor=$(which "vi")
+	fi
 fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias ll='ls -alFh --color=auto'
-    alias la='ls -A --color=auto'
-    alias l='ls -CF --color=auto'
-    alias dir='dir --color=auto'
-    alias grep='grep --color=auto'
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+	alias ll='ls -alFh --color=auto'
+	alias la='ls -A --color=auto'
+	alias l='ls -CF --color=auto'
+	alias dir='dir --color=auto'
+	alias grep='grep --color=auto'
 fi
 
 # some more ls aliases
@@ -48,10 +55,9 @@ alias null='/dev/null'
 alias home='cd ~'
 alias root='cd /'
 alias resetperms='sudo chmod -R a=r,u+w,a+X'
-alias nano=$assignedEditor
-alias vi=$assignedEditor
-alias vim=$assignedEditor
-alias edit=$assignedEditor
+alias nano=v
+alias vi=v
+alias vim=v
 alias sysstart="systemctl start"
 alias sysrestart="systemctl restart"
 alias sysreload="systemctl reload"
