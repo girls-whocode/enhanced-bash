@@ -792,14 +792,6 @@ function __preload() {
   # match all files and zero or more directories and subdirectories.
   shopt -s globstar
 
-  # Define the session type as Local, then test at the end of the _preload
-  SESSION_TYPE="LOCAL"
-
-  # Check to see if there is an active SSH connection and set the SESSION TYPE
-  if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-    SESSION_TYPE="SSH"
-  fi
-
   # make less more friendly for non-text input files, see lesspipe(1)
   [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -837,3 +829,10 @@ function __preload() {
   echo "[$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")]:[SUCCESS]:[System Preload completed]:[LOADED]" >> ${logsLocation}/startup.log
   echo -e "$Aqua F1$White -$Silver Displays available commands and help"
 }
+
+# Define the session type as Local, then test at the end of the _preload
+SESSION_TYPE="LOCAL"
+
+# Check to see if there is an active SSH or TTY connection and set the SESSION TYPE
+[ -z "$SSH_CLIENT" ] || SESSION_TYPE="SSH"
+[ -z "$SSH_TTY" ] || SESSION_TYPE="SSH"
