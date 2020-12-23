@@ -15,29 +15,7 @@
 #           full description would be if they call that command with --help or (-h)
 
 function commands() {
-    echo -e "${White}BASH SYSTEM HELP CENTER"
-    echo -e "${Aqua}up${White} - ${Silver}traverse up x directories"
-    echo -e "${Aqua}upto${White} - ${Silver}traverse up to a directory in your current path"
-    echo -e "${Aqua}jump${White} - ${Silver}traverse down to a directory in your current path"
-    echo -e "${Aqua}reload${White} - ${Silver}reload shell environment"
-    echo -e "${Aqua}history_stats${White} - ${Silver}returns the number of times a command was used"
-    echo -e "${Aqua}extract${White} - ${Silver}extract zip, tar, bz2, rar, gz, 7z, Z"
-    echo -e "${Aqua}add_alias${White} - ${Silver}add and activate an alias to the aliases file"
-    echo -e "${Aqua}d${White} - ${Silver}recalls the last 50 directories visited"
-    echo -e "${Aqua}bak${White} - ${Silver}backup and date a file in the ~/.backup directory"
-    echo -e "${Aqua}netinfo${White} - ${Silver}returns public IP address"
-    echo -e "${Aqua}dirsize${White} - ${Silver}show the directories sizes"
-    echo -e "${Aqua}color_sample${White} - ${Silver}returns all availabe colors with variable name"
-    echo -e "${Aqua}empty${White} - ${Silver}zero a file while perserving permissions"
-    echo -e "${White}Each command has ${Red}-h ${White}or ${Red}--help ${White}to display detailed help" # 55 Chars
-    echo -e "${White}KEYBOARD SHORTCUTS"
-    echo -e "${Aqua}F1${White} - ${Silver}Displays this help"
-    echo -e "${Aqua}F2${White} - ${Silver}Displays Weather and Calendar information"
-    echo -e "${Aqua}ALT-W${White} - ${Silver}Displays who is online information"
-    echo -e "${Aqua}ALT-V${White} - ${Silver}Displays distrobution and version information"
-    echo -e "${Aqua}ALT-R${White} - ${Silver}Reloads terminal environment"
-    echo -e "${Aqua}ALT-C${White} - ${Silver}clear_screens the terminal screen"
-    echo -e "${Aqua}CTRL-D${White} - ${Silver}Closes shell or terminates terminal"
+    cat ${binLocation}${dirSeperator}help.dat
 }    
 
 function under_construction() {

@@ -47,7 +47,7 @@ fi
 alias lt='du -sh * | sort -h'
 alias q='exit'
 alias quit='exit'
-alias cls='clear; ls'
+alias cls='clear'
 alias c='clear'
 alias h='history'
 alias k='kill'
