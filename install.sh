@@ -64,7 +64,7 @@ for folder in ${defaultSourceLocations[*]}; do
 	done
 done
 
-if [[ $1 != "--help" ]]; then
+if [[ $1 == "--help" ]]; then
 	echo -e "${Red}Notice: ${White}This install script is still under construction, ${Red} DO NOT USE!${txtReset}"
 	echo -e "${Silver}There are many things that are not currently completed. Follow these 10 steps to install this program:${txtReset}"
 	echo -e "${DeepPink8}Use the ${Silver}--force ${DeepPink8}to force the install and hopfully it won't break your system."
@@ -128,7 +128,7 @@ fi
 mv ~/.bashrc ~/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
-printf "editor=\"nano\"\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\t. ${defaultInstallDirectories}/bash_system.sh;;\nesac\n" > ~/.bashrc
+printf "# Created by Enhanced BASH Installer on ${longdate}\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\tcd ${defaultInstallDirectories}\n\t\t. ${defaultInstallDirectories}/bash_system.sh;;\nesac\n" > ~/.bashrc
 
 # Verify and install the following: git, curl, highlight
 # cd ${libLocation}/has && sudo make install
