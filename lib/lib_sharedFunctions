@@ -834,5 +834,5 @@ function __preload() {
 SESSION_TYPE="LOCAL"
 
 # Check to see if there is an active SSH or TTY connection and set the SESSION TYPE
-[ -z "$SSH_CLIENT" ] || SESSION_TYPE="SSH"
-[ -z "$SSH_TTY" ] || SESSION_TYPE="SSH"
+[ -z "$SSH_CLIENT" ] || export SESSION_TYPE="SSH"
+[ -z "$SSH_TTY" ] || export SESSION_TYPE="SSH"
