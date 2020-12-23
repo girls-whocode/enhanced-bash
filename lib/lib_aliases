@@ -23,7 +23,7 @@ bind -x '"'${kbDirJump}'":"dirjump"'
 
 # Check if an assigned editor has been defined in the .bashrc.
 if [ -z $editor ]; then
-	assignedEditor=$(which "vim")
+	export assignedEditor=$(which "vim")
 else
 	if [[ $(which "$editor") ]]; then
 		export assignedEditor=$(which "$editor")
