@@ -3,7 +3,7 @@
 # description			:This is a start up script to make your bash experience useful
 # author				:Jessica Brown
 # date					:2019-12-20
-# version				:4
+# version				:4.0.0
 # usage					:After install, just open a terminal
 # notes					:This script is self installing
 # bash_version	:4.1.5(1)-release
@@ -22,19 +22,8 @@
 
 scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-if [ -f "log_system.sh" ]; then
-	source "log_system.sh"
-else
-	echo "System files are not found, installation was not successful."
-	exit 2
-fi
-
-if [ -f "bash.conf" ]; then
-	source "bash.conf"
-else
-	echo "The configuration file could not be found."
-	exit 2
-fi
+[ -f "${scriptLocation}/bin/log_system.sh" ] && source "${scriptLocation}/bin/log_system.sh" || echo "System files are not found, installation was not successful."
+[ -f "${scriptLocation}/bin/bash.conf" ] && source "${scriptLocation}/bin/bash.conf" || echo "The configuration file could not be found."
 
 export binLocation="${scriptLocation}${dirSeperator}${binSubPath}"
 export libLocation="${scriptLocation}${dirSeperator}${libSubPath}"
@@ -42,7 +31,7 @@ export modLocation="${scriptLocation}${dirSeperator}${modSubPath}"
 export orLocation="${scriptLocation}${dirSeperator}${overrideSubPath}"
 export thmLocation="${scriptLocation}${dirSeperator}${themeSubPath}"
 export logsLocation="${scriptLocation}${dirSeperator}${logsSubPath}"
-export archiveLocation="${scriptLocation}${dirSeperator}${archiveSubPath}"
+export archiveLocation="${binLocation}${dirSeperator}${archiveSubPath}"
 export userHomeLocation=$( getent passwd "${USER}" | cut -d: -f6 )
 
 defaultSourceLocations=("${libLocation}" "${modLocation}" "${orLocation}" "${thmLocation}")
