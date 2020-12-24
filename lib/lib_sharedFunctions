@@ -623,14 +623,14 @@ function __preload() {
   else
       cd()
       {
-          builtin cd "$@" # https://unix.stackexchange.com/a/366974/307359
+          builtin cd "$@" || exit # https://unix.stackexchange.com/a/366974/307359
           propose_dir_path
       }
   fi
 
-  cd ~
+  cd ~ || exit
   echo "[$(LC_ALL=C date +"%Y-%m-%d %H:%M:%S")]:[SUCCESS]:[System Preload completed]:[LOADED]" >> ${logsLocation}/startup.log
-  echo -e "$Aqua F1$White -$Silver Displays available commands and help"
+  echo -e "${Aqua} F1${White} -${Silver} Displays available commands and help"
 }
 
 # Define the session type as Local, then test at the end of the _preload

@@ -19,6 +19,7 @@ scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 [ -f "${scriptLocation}/bin/log_system.sh" ] && source "${scriptLocation}/bin/log_system.sh" || echo "System files are not found, installation was not successful."
 [ -f "${scriptLocation}/bin/bash.conf" ] && source "${scriptLocation}/bin/bash.conf" || echo "The configuration file could not be found."
+[ -f "${scriptLocation}/lib/lib_colors" ] && source "${scriptLocation}/lib/lib_colors"
 
 export binInstallLocation="${scriptLocation}${dirSeperator}${binSubPath}"
 export libInstallLocation="${scriptLocation}${dirSeperator}${libSubPath}"
@@ -80,7 +81,7 @@ echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder fou
 rm ${defaultInstallBaseDirectory}${dirSeperator}install.sh
 
 # Rename the current .bashrc to .bashrc-$timestamp-EBS
-mv ~/.bashrc ~/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS
+mv "${HOME}/.bashrc" "${HOME}/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS"
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
 printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\tcd ${defaultInstallBaseDirectory}${dirSeperator}\n\t\t. ${defaultInstallBaseDirectory}${dirSeperator}/bash_system.sh;;\nesac\n" > ~/.bashrc
