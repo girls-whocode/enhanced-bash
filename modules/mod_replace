@@ -2,15 +2,15 @@
 
 # This replace spaces in a file name
 # with underscores as the default.
-# replaceit 
-# file 1.txt will be file_1.txt 
-# You can provide an argument for replacement. 
+# replaceit
+# file 1.txt will be file_1.txt
+# You can provide an argument for replacement.
 # replaceit -
-# file-1.txt will be file_1.txt 
+# file-1.txt will be file_1.txt
 # replaceit -f -
 # This will replace this-file-1.md to this_file_1.md
 # replaceit -f - -t x
-# his will replace this-file-1.md to thisxfilex1.md
+# This will replace this-file-1.md to thisxfilex1.md
 
 
 function usage() {
