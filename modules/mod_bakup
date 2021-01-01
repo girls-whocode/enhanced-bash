@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+function bakup() {
+    # title             :Enhanced BASH Backup File System
+    # description       :A module to backup a directory or file
+    # author            :Jessica Brown
+    # date              :2020-01-25
+    # usage			    :bakup [--help|-h] [directory/|filename.ext]
+    # notes			    :
+    # bash_version	    :4.4.19(1)-release
+    # ==============================================================================
+    local version="2.0.0"
+    baktimestamp=$(LC_ALL=C date +%Y%m%d_%H%M%S)
+
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        help_screen 6 2
+        cursorpos up 17; cursorpos col 32; echo -e "${White}BAK (version ${version})"
+        cursorpos down 3; cursorpos col 3; echo -e "${Aqua}bakup ${White}- ${Silver}Backup a file or directory with the current date and timestamp."
+        cursorpos down 2; cursorpos col 3; echo -e "${Maroon}NOTICE: ${White}If the .backup folder does not exists, this will command will fail."
+        cursorpos down 1; cursorpos col 3; echo -e "${White}The .backup folder should have been created automatically during the install"
+        cursorpos down 1; cursorpos col 3; echo -e "${White}script. If the .backup folder does not exist, you are able to create it."
+        cursorpos down 3; cursorpos col 3; echo -e "${White}EXAMPLE"
+        cursorpos down 3; cursorpos col 3; echo -e "${Silver}$ ${Yellow5}bakup ${Lime}[${CornflowerBlue}filename.ext ${Aqua}| ${CornflowerBlue}directory${Lime}]"
+        cursorpos down 4; echo -e ${txtReset}
+    else
+        if [ -d $archiveLocation ]; then
+            if [ -d $1 ]; then
+                bakFolder=$(basename "$1")-${baktimestamp}
+                mkdir -p ${archiveLocation}/${bakFolder}
+                rsync -aqr $1 ${archiveLocation}/${bakFolder}
+                echo -e "The folder ${Aqua}${1} has been backed up at ${HOME}/.backup/${bakFolder}"
+                diff -qr ${1}/ ${archiveLocation}/${bakFolder}/
+            elif [ -f $1 ]; then
+                cp $1 ${archiveLocation}/`basename $1`-${baktimestamp}.backup
+            else
+                warning "${1} file or directory not found."
+            fi
+        else
+            echo -e "${Red}ERROR: ${Silver}The ${archiveLocation} folder does not exist in the home folder, ${CornflowerBlue}$1${Silver} was not backed up. Create the ${archiveLocation} and try again.${txtReset}"
+        fi
+    fi
+}

@@ -1,0 +1,55 @@
+2020-02-18 - Removed personal apps from loading
+             Minor inconsistencies in bash_system.sh
+             Fixed quoting the timestamp in bash_system and install
+             Added detection of screen width
+             Well I thought I was an OK speller... Fixed many spelling errors and typos
+2020-02-17 - Moved all files to ~/.local/bin/bashsystem
+             Re-architect the environment to be more complacent with Debian/RHEL/Arch distros
+2020-02-12 - Continued Development
+             Redesigned install.sh
+             Added images to images folder
+             Removed old file bash_template.sh
+             Resolved prompt issue to .bashfunc_int
+             Fixed? git user name and password
+2020-02-10 - Continued Development
+             Bug in cursorpos right fixed
+             Added more information on netinfo function
+               -- More work still needed, find active
+               -- Display multiple NICs
+               -- Take NIC up or down
+2020-02-09 - Continued Development
+             Added hwinfo to the install apps list
+             Continued development on netinfo function
+             No Push
+2020-02-08 - Continued Development
+             Added basic information to README
+             Started adding information into the CHANGELOG
+             Fixed help systems in mod_addalias, mod_bakfile, mod_dirsize, mod_help, mod_splashscreen
+             Fixed spelling in mod_splashscreen function
+             Moved keybinding in .bashfunc_int into preload
+             Moved directory captures into preload
+             mod_addalias:
+                Added -h --help to USAGE context
+                Added banner to top of file
+                Added success color to Added alias message
+             mod_bakfile:
+                Fixed spelling error
+             mod_dirsize:
+                Added Terabytes and Petabytes
+                Added additional comment
+             mod_empty:
+                Removed invalid function call
+             .bashfunc_int:
+                Added chk_root function
+2020-02-07 - Continued Development
+             Created new screen_util modules
+             Redesigned Help System
+             Redesigned Draw Screen System
+             Added new cursorpos function
+2020-02-05 - Continued Development
+             Things and stuff (I know, "bad programmer!")
+2020-02-04 - Init push
+             Added to personal Gitlab (Init push)
+             Added empty README, LICENSE, CONTRIBUTING, CHANGELOG files
+2020-01-29 - Ummmm... Stuff and things...
+2020-01-25 - Initial create and design

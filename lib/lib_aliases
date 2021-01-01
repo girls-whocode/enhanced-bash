@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# title			:BASHRC System
+# description	:This is a startup script to make your bash experience useful
+# author		:Jessica Brown
+# date			:2019-12-20
+# version		:4.1
+# usage			:After install, just open a terminal
+# notes			:This script is self installing
+# bash_version	:4.1.5(1)-release
+# ==============================================================================
+# updated   :2020-12-21
+
+# Keyboard Binding
+bind -x '"'${kbClear}'":"clear && echo ''"'
+bind -x '"'${kbReload}'":"reload"'
+bind -x '"'${kbVersion}'":"ver"'
+bind -x '"'${kbWhoIs}'":"who"'
+bind -x '"'${kbHelpFKey}'":"commands"'
+bind -x '"'${kbHelp}'":"commands"'
+bind -x '"'${kbSpashscreenFKey}'":"splashscreen"'
+bind -x '"'${kbSpashscreen}'":"splashscreen"'
+bind -x '"'${kbDirJump}'":"dirjump"'
+
+# Check if an assigned editor has been defined in the .bashrc.
+if [ -z $editor ]; then
+	export assignedEditor=$(which "vim")
+else
+	if [[ $(which "$editor") ]]; then
+		export assignedEditor=$(which "$editor")
+	else
+		export assignedEditor=$(which "vi")
+	fi
+fi
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+	alias ll='ls -alFh --color=auto'
+	alias la='ls -A --color=auto'
+	alias l='ls -CF --color=auto'
+	alias dir='dir --color=auto'
+	alias grep='grep --color=auto'
+fi
+
+# some more ls aliases
+alias lt='du -sh * | sort -h'
+alias q='exit'
+alias quit='exit'
+alias cls='clear'
+alias c='clear'
+alias h='history'
+alias k='kill'
+alias null='/dev/null'
+alias home='cd ~'
+alias root='cd /'
+alias resetperms='sudo chmod -R a=r,u+w,a+X'
+alias nano=v
+alias vi=v
+alias vim=v
+alias sysstart="systemctl start"
+alias sysrestart="systemctl restart"
+alias sysreload="systemctl reload"
+alias sysstop="systemctl stop"
+alias sysstatus="systemctl status"
+alias viewcode="highlight -O ansi --force "

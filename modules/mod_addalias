@@ -1,0 +1,44 @@
+#!/bin/bash -i
+# title			:Add Alias Module for BASH System
+# description	:To create and alias from the previous command and 
+#                add it the the aliases.sh file for permanency
+# author		:Jessica Brown
+# date			:2020-01-25
+# version		:2.0.0
+# usage			:After install, just open a terminal
+# notes			:This script is self installing
+# bash_version	:4.1.5(1)-release
+# ==============================================================================
+
+function addalias() {
+    if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        help_screen 6 3
+        cursorpos up 18; cursorpos col 28; echo -e "${White}ADD ALIAS (version 2.0)"
+        cursorpos down 3; cursorpos col 4; echo -e "${Aqua}addalias ${White}- ${Silver}Adds the last command executed to the aliases file."
+        cursorpos down 2; cursorpos col 4; echo -e "${Maroon}NOTICE: ${White}Take care in last executed commands, this script does not verify if"
+        cursorpos down 1; cursorpos col 4; echo -e "${White}last command was successful for failed, nor is there any sanity check on"
+        cursorpos down 1; cursorpos col 4; echo -e "${White}commands."
+        cursorpos down 3; cursorpos col 4; echo -e "${White}EXAMPLE"
+        cursorpos down 3; cursorpos col 4; echo -e "${Silver}$ ${White}cat /var/log/syslog ${Green}# last executed command"
+        cursorpos down 1; cursorpos col 4; echo -e "${Silver}$ ${White}addalias view_syslog ${Green}# view_syslog is now an alias of the previous command${txtReset}"
+        cursorpos down 4
+    else
+        if [[ "$#" -ne 1 ]]; then
+            echo -e "${Red}USAGE: ${Silver}addalias <alias>${txtReset}"
+            echo -e "       ${Silver}addalias -h [--help]${txtReset}"
+            return 0
+        elif [[ -n "$(alias $1 2>/dev/null)" ]]; then
+            echo "${Red}Alias already exists!${txtReset}"
+            return 0
+        fi
+
+        lastcmd=$(history | tail -2 | head -1 | cut -c8-999)
+        if [[ "${lastcmd}" != "" ]]; then
+            echo -e "alias $1=\"${lastcmd}\"\n" >> ${orLocation}/or_bash_aliases.sh
+            reload
+            echo "${Lime}Alias was added successfully.${txtReset}"
+        else
+            echo "${Red}NOTICE: ${White}History does not show any previous commands to be entered, use --help for more information.${txtReset}"
+        fi
+    fi
+}

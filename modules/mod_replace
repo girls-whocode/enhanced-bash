@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# This replace spaces in a file name
+# with underscores as the default.
+# replaceit
+# file 1.txt will be file_1.txt
+# You can provide an argument for replacement.
+# replaceit -
+# file-1.txt will be file_1.txt
+# replaceit -f -
+# This will replace this-file-1.md to this_file_1.md
+# replaceit -f - -t x
+# This will replace this-file-1.md to thisxfilex1.md
+
+
+function usage() {
+    echo "Usage: $0 [ -m FROM ] [ -t TO ]"
+    exit 2
+}
+
+
+###################
+# main script
+
+function replace() {
+    unset FROM TO
+
+    # set defaults
+    TO="_"
+    FROM=" "
+
+    while getopts "f:t:?h" opt; do
+        case $opt in
+            f) FROM=$OPTARG ;;
+            t) TO=$OPTARG ;;
+            h|*) usage ;;
+        esac
+    done
+
+    echo "We are replacing $FROM to ${TO}."
+
+    for f in *
+    do
+        new="${f//$FROM/$TO}"
+        echo "$new"
+        if [ "$new" != "$f" ]; then
+            if [ -e "$new" ]; then
+                echo "Not renaming $f because $new already exists"
+            else
+                echo "Moving $f to ${new}."
+                mv "$f" "$new"
+            fi
+        fi
+    done
+}
