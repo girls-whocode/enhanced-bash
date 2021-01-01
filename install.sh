@@ -78,8 +78,14 @@ for installDirectory in ${installDirectories[*]}; do
 done
 
 # Install the minimal dependancies - git curl highlight most
-echo -e "${Red}NOTICE: ${Silver}This script will install ${Yellow}git${White},${Yellow}curl${White},${Yellow}highlight${White},${Yellow}most${White},${Yellow}wget${White},${Yellow}python3${White},${Yellow}pip${White} ${Silver}sudo will be requested, please enter your password.${txtReset}"
-sudo apt install git curl highlight most wget python3 python3-pip
+packagesNeeded='jq git curl highlight most wget python3 python3-pip'
+echo -e "${Red}NOTICE: ${Silver}This script will install ${Yellow}${packagesNeeded}${Silver} sudo will be requested, please enter your password.${txtReset}"
+
+if [ -x "$(command -v apk)" ];       then sudo apk add --no-cache $packagesNeeded
+elif [ -x "$(command -v apt-get)" ]; then sudo apt-get install $packagesNeeded
+elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packagesNeeded
+elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packagesNeeded
+else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 
 # Install some fonts for theme-pureblack
 [ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
