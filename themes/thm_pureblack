@@ -9,19 +9,6 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-# Install some fonts
-[ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
-if [ ! -f "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}PowerlineSymbols.otf" ]; then
-	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-	mv PowerlineSymbols.otf "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
-fi	
-
-[ ! -d "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"	
-if [ ! -f "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}10-powerline-symbols.conf" ]; then
-	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"
-fi
-
 # Apply only if terminal supports 8-bit colors
 if [ "${TERM}" != "xterm-256color" ]; then
     if [ ${UID} -eq 0 ]; then

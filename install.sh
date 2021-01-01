@@ -79,7 +79,21 @@ done
 
 # Install the minimal dependancies - git curl highlight most
 echo -e "${Red}NOTICE: ${Silver}This script will install ${Yellow}git${White},${Yellow}curl${White},${Yellow}highlight${White},${Yellow}most${White},${Yellow}wget${White},${Yellow}python3${White},${Yellow}pip${White} ${Silver}sudo will be requested, please enter your password.${txtReset}"
-sudo apt install git curl highlight most wget python3-pip
+sudo apt install git curl highlight most wget python3 python3-pip
+
+# Install some fonts for theme-pureblack
+[ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
+if [ ! -f "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}PowerlineSymbols.otf" ]; then
+	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+	mv PowerlineSymbols.otf "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
+fi	
+
+[ ! -d "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"	
+if [ ! -f "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}10-powerline-symbols.conf" ]; then
+	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"
+fi
+fc-cache -vf ~/.local/share/fonts/
 
 # Check if powerline-status exists
 pip install --user powerline-status
