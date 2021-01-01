@@ -21,6 +21,7 @@ scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -f "${scriptLocation}/bin/bash.conf" ] && source "${scriptLocation}/bin/bash.conf" || echo "The configuration file could not be found."
 [ -f "${scriptLocation}/lib/lib_colors" ] && source "${scriptLocation}/lib/lib_colors"
 
+# Define default directories
 export binInstallLocation="${scriptLocation}${dirSeperator}${binSubPath}"
 export libInstallLocation="${scriptLocation}${dirSeperator}${libSubPath}"
 export modInstallLocation="${scriptLocation}${dirSeperator}${modSubPath}"
@@ -35,6 +36,7 @@ export directory_list="${binInstallLocation}${dirSeperator}${dirJumpPath}${dirSe
 export defaultInstallationLocation="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
 export defaultSourceLocations=("${libInstallLocation}" "${modInstallLocation}" "${overridesInstallLocation}" "${themesInstallLocation}")
 
+# See if they need some help -- Needs to be rewritten
 if [[ $1 == "--help" ]]; then
 	echo -e "${Red}Notice: ${White}This install script is still under construction, ${Red} DO NOT USE!${txtReset}"
 	echo -e "${Silver}There are many things that are not currently completed. Follow these 10 steps to install this program:${txtReset}"
@@ -75,6 +77,23 @@ for installDirectory in ${installDirectories[*]}; do
 	fi
 done
 
+# Install the minimal dependancies - git curl highlight most
+echo -e "${Red}NOTICE: ${Silver}This script will install ${Yellow}git${White},${Yellow}curl${White},${Yellow}highlight${White},${Yellow}most${White},${Yellow}wget${White} ${Silver}sudo will be requested, please enter your password.${txtReset}"
+sudo apt install git curl highlight most wget python3-pip
+
+# Install some fonts
+[ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
+if [ ! -f "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}PowerlineSymbols.otf" ]; then
+	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+	mv PowerlineSymbols.otf "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
+fi	
+
+[ ! -d "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"	
+if [ ! -f "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}10-powerline-symbols.conf" ]; then
+	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"
+fi
+
 # Copy all of the files to the new folder and remove the install.sh script
 cp -r ${scriptLocation}${dirSeperator}* ${defaultInstallBaseDirectory}${dirSeperator}
 echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder found at ${defaultInstallBaseDirectory}${dirSeperator}]" >> ${logsInstallLocation}${dirSeperator}install.log
@@ -85,9 +104,6 @@ mv "${HOME}/.bashrc" "${HOME}/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS"
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
 printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\tcd ${defaultInstallBaseDirectory}${dirSeperator}\n\t\t. ${defaultInstallBaseDirectory}${dirSeperator}/bash_system.sh;;\nesac\n" > ~/.bashrc
-
-# git curl highlight most
-echo -e "${StealBlue2}To use many features of this program, install any programs that show and ${Red}x${txtReset}"
 
 # Create the new directory jump folder and files
 mkdir -p ${dirJumpFolder}
