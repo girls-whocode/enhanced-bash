@@ -5,7 +5,7 @@
 # date              :2020-01-25
 # usage			    :bakup [--help|-h] [directory/|filename.ext]
 # notes			    :This install may not work on all systems, please try to install manually!
-# bash_version	    :4.4.19(1)-release
+# bash_version	    :5.0.17(1)-release, 4.4.19(1)-release
 # ==============================================================================
 #	1.2.0
 #		New bash.conf file being added with questions to fill
@@ -17,9 +17,15 @@
 version="2.0.0"
 scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-[ -f "${scriptLocation}/bin/log_system.sh" ] && source "${scriptLocation}/bin/log_system.sh" || echo "System files are not found, installation was not successful."
-[ -f "${scriptLocation}/bin/bash.conf" ] && source "${scriptLocation}/bin/bash.conf" || echo "The configuration file could not be found."
-[ -f "${scriptLocation}/lib/lib_colors" ] && source "${scriptLocation}/lib/lib_colors"
+if [ -f "${scriptLocation}/bin/bash.conf" ]; then
+	source "${scriptLocation}/bin/bash.conf"
+else
+	printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+	source "${scriptLocation}/bin/bash.conf"
+fi
+
+[ -f "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" ] && source "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" || echo "Can not continue"
+[ -f "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors" ] && source "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors"
 
 # Define default directories
 export binInstallLocation="${scriptLocation}${dirSeperator}${binSubPath}"
@@ -63,11 +69,11 @@ if [[ ${defaultInstallBaseDirectory} == "" ]]; then
 	export defaultInstallBaseDirectory="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
 fi
 
-export installDirectories=("${defaultInstallBaseDirectory}${dirSeperator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${overridesInstallLocation}" "${defaultInstallBaseDirectory}${dirSeperator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeperator}${installationSubPath}")
+export installDirectories=("${defaultInstallBaseDirectory}${dirSeperator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeperator}${installationSubPath}")
 
 for installDirectory in ${installDirectories[*]}; do
-	if [ ! -d ${installDirectory} ]; then
-		mkdir -p ${installDirectory} > /dev/null 2>&1
+	if [ ! -d "${installDirectory}" ]; then
+		mkdir -p "${installDirectory}" > /dev/null 2>&1
 		retVal=$?
 		if [ $retVal -ne 0 ]; then
     		error "[Creating directory ${installDirectory}]" >> ${logsInstallLocation}${dirSeperator}installation.log
@@ -77,7 +83,13 @@ for installDirectory in ${installDirectories[*]}; do
 	fi
 done
 
+# make the overrides folder if it doesn't exist, we don't want to over write any existing overrides
+if [ ! -d "${defaultInstallBaseDirectory}${dirSeperator}${overridesInstallLocation}" ]; then
+	mkdir -p "${defaultInstallBaseDirectory}${dirSeperator}${overridesInstallLocation}" > /dev/null 2>&1
+fi 
+
 # Install the minimal dependancies - git curl highlight most
+# TODO: Check to see if any exist and only install those that don't
 packagesNeeded='jq git curl highlight most wget python3 python3-pip'
 echo -e "${Red}NOTICE: ${Silver}This script will install ${Yellow}${packagesNeeded}${Silver} sudo will be requested, please enter your password.${txtReset}"
 
@@ -87,7 +99,7 @@ elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packagesNeeded
 elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packagesNeeded
 else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 
-# Install some fonts for theme-pureblack
+# Check and install some fonts for dependancies
 [ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
 if [ ! -f "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}PowerlineSymbols.otf" ]; then
 	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
@@ -99,9 +111,11 @@ if [ ! -f "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${d
 	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"
 fi
+
+# Add the fonts to cache
 fc-cache -vf ~/.local/share/fonts/
 
-# Check if powerline-status exists
+# TODO: Check if powerline-status exists
 pip install --user powerline-status
 
 # Copy all of the files to the new folder and remove the install.sh script
