@@ -1,9 +1,0 @@
-/home/jessica/.local/bin/enhanced-bash-system/logs/startup.log {
-    su jessica jessica
-    notifempty
-    copytruncate
-    weekly
-    rotate 52
-    compress
-    missingok
-}
