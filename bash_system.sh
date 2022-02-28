@@ -31,7 +31,7 @@ export modLocation="${scriptLocation}${dirSeperator}${modSubPath}"
 export orLocation="${scriptLocation}${dirSeperator}${overrideSubPath}"
 export thmLocation="${scriptLocation}${dirSeperator}${themeSubPath}"
 export logsLocation="${scriptLocation}${dirSeperator}${logsSubPath}"
-export archiveLocation="${binLocation}${dirSeperator}${archiveSubPath}"
+export archiveLocation="${HOME}${dirSeperator}${archiveSubPath}"
 export userHomeLocation=$( getent passwd "${USER}" | cut -d: -f6 )
 
 defaultSourceLocations=("${libLocation}" "${modLocation}" "${orLocation}" "${thmLocation}")

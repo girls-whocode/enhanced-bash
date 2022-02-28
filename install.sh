@@ -12,7 +12,8 @@
 #		Modified all path folders to respect installation location versus install from location
 #	2.0.0
 #		Rewrite of code to contain viable installation system
-
+#   git config --global user.email "you@example.com"
+#   git config --global user.name "Your Name"
 # Setup temp variables to define base locations
 version="2.0.0"
 scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -35,12 +36,14 @@ export orInstallLocation="${scriptLocation}${dirSeperator}${overrideSubPath}"
 export thmInstallLocation="${scriptLocation}${dirSeperator}${themeSubPath}"
 export logsInstallLocation="${binInstallLocation}${dirSeperator}${logsSubPath}"
 export archiveInstallLocation="${binInstallLocation}${dirSeperator}${archiveSubPath}"
+export backupInstallLocation="${HOME}${dirSeperator}.backup"
 export userHomeLocation=$( getent passwd "${USER}" | cut -d: -f6 )
 
 export dirJumpFolder="${binInstallLocation}${dirSeperator}${dirJumpPath}"
 export directory_list="${binInstallLocation}${dirSeperator}${dirJumpPath}${dirSeperator}${dirListFile}"
 export defaultInstallationLocation="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
 export defaultSourceLocations=("${libInstallLocation}" "${modInstallLocation}" "${overridesInstallLocation}" "${themesInstallLocation}")
+export defaultBackupLocation=("${backupInstallLocation}")
 
 # See if they need some help -- Needs to be rewritten
 if [[ $1 == "--help" ]]; then
@@ -55,10 +58,11 @@ if [[ $1 == "--help" ]]; then
 	cursorpos col 2; echo -e "${Cyan}5. ${Silver}Install ${SteelBlue}git, curl, highlight, tput, logrotate${txtReset}"
 	cursorpos col 2; echo -e "${Cyan}6. ${Silver}Create the folder: ${Purple}${HOME}/.backup${txtReset}"
 	cursorpos col 2; echo -e "${Cyan}7. ${Silver}Create the folder: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/dirjump${txtReset}"
-	cursorpos col 2; echo -e "${Cyan}8. ${Silver}Create the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/dirjump/directory_list${txtReset}"
-	cursorpos col 2; echo -e "${Cyan}9. ${Silver}Create the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/dirjump/last_dir_remove${txtReset}"
-	cursorpos col 2; echo -e "${Cyan}10. ${Silver}Copy the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/enhanced-bash to log-rotate folder${txtReset}"
-	cursorpos col 2; echo -e "${Cyan}10. ${Silver}Consider contributing from my Git Repo: ${SpringGreen3}https://${SpringGreen3}gitlab.com/${SpringGreen3}public_scope/${SpringGreen3}bash-projects/${DarkSeaGreen7}enhanced-bash-system.git${txtReset}"
+	cursorpos col 2; echo -e "${Cyan}8. ${Silver}Create the folder: ${Purple}${defaultBackupLocation}${txtReset}"
+	cursorpos col 2; echo -e "${Cyan}9. ${Silver}Create the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/dirjump/directory_list${txtReset}"
+	cursorpos col 2; echo -e "${Cyan}10. ${Silver}Create the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/dirjump/last_dir_remove${txtReset}"
+	cursorpos col 2; echo -e "${Cyan}11. ${Silver}Copy the file: ${Purple}${HOME}/.local/bin/enhanced-bash-system/lib/enhanced-bash to log-rotate folder${txtReset}"
+	cursorpos col 2; echo -e "${Cyan}12. ${Silver}Consider contributing from my Git Repo: ${SpringGreen3}https://${SpringGreen3}gitlab.com/${SpringGreen3}public_scope/${SpringGreen3}bash-projects/${DarkSeaGreen7}enhanced-bash-system.git${txtReset}"
 	echo -e ${txtReset} && exit
 fi
 
@@ -69,7 +73,7 @@ if [[ ${defaultInstallBaseDirectory} == "" ]]; then
 	export defaultInstallBaseDirectory="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
 fi
 
-export installDirectories=("${defaultInstallBaseDirectory}${dirSeperator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeperator}${installationSubPath}")
+export installDirectories=("${defaultInstallBaseDirectory}${dirSeperator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeperator}${installationSubPath}" "${defaultBackupLocation}")
 
 for installDirectory in ${installDirectories[*]}; do
 	if [ ! -d "${installDirectory}" ]; then
