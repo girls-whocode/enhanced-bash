@@ -1,0 +1,45 @@
+# Created by Enhanced BASH Installer on 2022-02-28 09:25:26
+
+# Editor
+editor="nano"
+
+# Themes
+prompt_theme="pureblack"
+
+# Default Files
+logFile="startup.log"
+dirListFile="directory_list"
+dirLastRemoveFile="last_dir_remove"
+
+# Folders
+dirSeperator="/"
+binSubPath="bin"
+libSubPath="lib"
+modSubPath="modules"
+logsSubPath="logs"
+overrideSubPath="overrides"
+themeSubPath="themes"
+archiveSubPath=".backup"
+dirJumpPath="dirjump"
+installationSubPath="enhanced-bash"
+
+# History Settings
+historyControl="ignoreboth"
+historyAppend="histappend"
+historySize=10000
+historyFileSize=200000
+directoryHistorySize=15
+
+# Keyboard Shortcuts
+kbClear="c" # Alt-C clears screen
+kbDirJump="d" # Alt-D directory history list
+kbReload="r" # Alt-R reloads environment
+kbVersion="v" # Alt-V show Distro and version information
+kbWhoIs="w" # Alt-W show who information
+kbHelpFKey="OP" # F1 will display help system
+kbHelp="h" # Alternitive (Alt-H) for help if F1 is not available
+kbSpashscreenFKey="OQ" # F2 will display the spashscreen
+kbSpashscreen="s" # Alternitive (Alt-S) for splashscreen if F2 is not available
+
+# Alias Shortcuts
+dirjumpCommand="d"

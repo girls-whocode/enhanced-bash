@@ -17,14 +17,43 @@
 # Setup temp variables to define base locations
 version="2.0.0"
 scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+White='\e[38;5;15m'
+Yellow='\e[38;5;11m'
+txtReset='\e[38;5;8m'
+Cyan='\e[38;5;51m'
+txtReset='\e[0m'
 
-if [ -f "${scriptLocation}/bin/bash.conf" ]; then
-	source "${scriptLocation}/bin/bash.conf"
-else
-	printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
-	source "${scriptLocation}/bin/bash.conf"
-fi
+function compareConfig() {
+	printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/temp.dat"
+	diff "${scriptLocation}/bin/bash.conf" "${scriptLocation}/temp.dat"
+	rm "${scriptLocation}/temp.dat"
+	bashConfig
+}
 
+function bashConfig() {
+	# Create the Config file if it doesn't exist
+	if [ -f "${scriptLocation}/bin/bash.conf" ]; then
+		echo "Existing config file exists, would you like to replace it, use it, compare the new to existing, or backup existing and use new? (Default is backup and use new)"
+		read -p "$(echo -e ${White}[${Cyan}R${White}]${txtReset}eplace ${White}[${Cyan}U${White}]${txtReset}se ${White}[${Cyan}C${White}]${txtReset}ompare ${White}[${Cyan}B${White}]${txtReset}ackup ${Yellow}:${txtReset})" configConfim
+		if [ $configConfim == "R" ] || [ $configConfim == "r" ]; then
+			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+			source "${scriptLocation}/bin/bash.conf"
+		elif [ $configConfim == "U" ] || [ $configConfim == "u" ]; then
+			source "${scriptLocation}/bin/bash.conf"
+		elif [ $configConfim == "C" ] || [ $configConfim == "c" ]; then
+			compareConfig
+		elif [ $configConfim == "B" ] || [ $configConfim == "b" ]; then
+			mv "${scriptLocation}/bin/bash.conf" "${scriptLocation}/bash.conf.bak"
+			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+			source "${scriptLocation}/bin/bash.conf"
+		fi
+	else
+		printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+		source "${scriptLocation}/bin/bash.conf"
+	fi
+}
+
+bashConfig
 [ -f "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" ] && source "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" || echo "Can not continue"
 [ -f "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors" ] && source "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors"
 
@@ -101,6 +130,7 @@ if [ -x "$(command -v apk)" ];       then sudo apk add --no-cache $packagesNeede
 elif [ -x "$(command -v apt-get)" ]; then sudo apt-get install $packagesNeeded
 elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packagesNeeded
 elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packagesNeeded
+elif [ -x "$(command -v pkg)" ];  	 then sudo pkg install $packagesNeeded
 else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 
 # Check and install some fonts for dependancies
