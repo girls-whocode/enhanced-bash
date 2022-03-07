@@ -1,3 +1,5 @@
 #!/bin/bash
 
-awk -F: '$3 > 1000 && $3 < 60000 {print "UN:" $1 " - ID:" $3}' /etc/passwd
+function userlist() {
+    awk -F: '$3 > 1000 && $3 < 60000 {print "UN:" $1 " - ID:" $3}' /etc/passwd
+}
