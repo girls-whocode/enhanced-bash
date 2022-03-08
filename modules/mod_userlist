@@ -1,5 +1,11 @@
 #!/bin/bash
 
 function userlist() {
-    awk -F: '$3 > 999 && $3 < 60001 {print "UN:" $1 " - ID:" $3}' /etc/passwd
+    declare -a users=($(awk -F: '$3 > 999 && $3 < 60001 {print $1}' /etc/passwd))
+
+    for user in "${users[@]}"; do
+        userid=$(awk -v pat="${user}" -F ":" '$1~pat{print $3}' /etc/passwd)
+        groups=($(groups ${user} | cut -d':' -f 2))
+        echo -e "${user} - ${userid} - (${groups[@]})"
+    done
 }
