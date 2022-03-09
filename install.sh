@@ -24,7 +24,7 @@ Cyan='\e[38;5;51m'
 txtReset='\e[0m'
 
 function compareConfig() {
-	printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/temp.dat"
+	printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeparator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/temp.dat"
 	diff "${scriptLocation}/bin/bash.conf" "${scriptLocation}/temp.dat"
 	rm "${scriptLocation}/temp.dat"
 	bashConfig
@@ -36,7 +36,7 @@ function bashConfig() {
 		echo "Existing config file exists, would you like to replace it, use it, compare the new to existing, or backup existing and use new? (Default is backup and use new)"
 		read -p "$(echo -e ${White}[${Cyan}R${White}]${txtReset}eplace ${White}[${Cyan}U${White}]${txtReset}se ${White}[${Cyan}C${White}]${txtReset}ompare ${White}[${Cyan}B${White}]${txtReset}ackup ${Yellow}:${txtReset})" configConfim
 		if [ $configConfim == "R" ] || [ $configConfim == "r" ]; then
-			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeparator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
 			source "${scriptLocation}/bin/bash.conf"
 		elif [ $configConfim == "U" ] || [ $configConfim == "u" ]; then
 			source "${scriptLocation}/bin/bash.conf"
@@ -44,33 +44,33 @@ function bashConfig() {
 			compareConfig
 		elif [ $configConfim == "B" ] || [ $configConfim == "b" ]; then
 			mv "${scriptLocation}/bin/bash.conf" "${scriptLocation}/bash.conf.bak"
-			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+			printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeparator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
 			source "${scriptLocation}/bin/bash.conf"
 		fi
 	else
-		printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeperator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
+		printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\n# Editor\neditor=\"nano\"\n\n# Themes\nprompt_theme=\"pureblack\"\n\n# Default Files\nlogFile=\"startup.log\"\ndirListFile=\"directory_list\"\ndirLastRemoveFile=\"last_dir_remove\"\n\n# Folders\ndirSeparator=\"/\"\nbinSubPath=\"bin\"\nlibSubPath=\"lib\"\nmodSubPath=\"modules\"\nlogsSubPath=\"logs\"\noverrideSubPath=\"overrides\"\nthemeSubPath=\"themes\"\narchiveSubPath=\".backup\"\ndirJumpPath=\"dirjump\"\ninstallationSubPath=\"enhanced-bash\"\n\n# History Settings\nhistoryControl=\"ignoreboth\"\nhistoryAppend=\"histappend\"\nhistorySize=10000\nhistoryFileSize=200000\ndirectoryHistorySize=15\n\n# Keyboard Shortcuts\nkbClear=\"\\ec\" # Alt-C clears screen\nkbDirJump=\"\\ed\" # Alt-D directory history list\nkbReload=\"\\er\" # Alt-R reloads environment\nkbVersion=\"\\ev\" # Alt-V show Distro and version information\nkbWhoIs=\"\\ew\" # Alt-W show who information\nkbHelpFKey=\"\\eOP\" # F1 will display help system\nkbHelp=\"\\eh\" # Alternitive (Alt-H) for help if F1 is not available\nkbSpashscreenFKey=\"\\eOQ\" # F2 will display the spashscreen\nkbSpashscreen=\"\\es\" # Alternitive (Alt-S) for splashscreen if F2 is not available\n\n# Alias Shortcuts\ndirjumpCommand=\"d\"\n" > "${scriptLocation}/bin/bash.conf"
 		source "${scriptLocation}/bin/bash.conf"
 	fi
 }
 
 bashConfig
-[ -f "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" ] && source "${scriptLocation}${dirSeperator}${binSubPath}${dirSeperator}log_system.sh" || echo "Can not continue"
-[ -f "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors" ] && source "${scriptLocation}${dirSeperator}${libSubPath}${dirSeperator}lib_colors"
+[ -f "${scriptLocation}${dirSeparator}${binSubPath}${dirSeparator}log_system.sh" ] && source "${scriptLocation}${dirSeparator}${binSubPath}${dirSeparator}log_system.sh" || echo "Can not continue"
+[ -f "${scriptLocation}${dirSeparator}${libSubPath}${dirSeparator}lib_colors" ] && source "${scriptLocation}${dirSeparator}${libSubPath}${dirSeparator}lib_colors"
 
 # Define default directories
-export binInstallLocation="${scriptLocation}${dirSeperator}${binSubPath}"
-export libInstallLocation="${scriptLocation}${dirSeperator}${libSubPath}"
-export modInstallLocation="${scriptLocation}${dirSeperator}${modSubPath}"
-export orInstallLocation="${scriptLocation}${dirSeperator}${overrideSubPath}"
-export thmInstallLocation="${scriptLocation}${dirSeperator}${themeSubPath}"
-export logsInstallLocation="${binInstallLocation}${dirSeperator}${logsSubPath}"
-export archiveInstallLocation="${binInstallLocation}${dirSeperator}${archiveSubPath}"
-export backupInstallLocation="${HOME}${dirSeperator}.backup"
+export binInstallLocation="${scriptLocation}${dirSeparator}${binSubPath}"
+export libInstallLocation="${scriptLocation}${dirSeparator}${libSubPath}"
+export modInstallLocation="${scriptLocation}${dirSeparator}${modSubPath}"
+export orInstallLocation="${scriptLocation}${dirSeparator}${overrideSubPath}"
+export thmInstallLocation="${scriptLocation}${dirSeparator}${themeSubPath}"
+export logsInstallLocation="${binInstallLocation}${dirSeparator}${logsSubPath}"
+export archiveInstallLocation="${binInstallLocation}${dirSeparator}${archiveSubPath}"
+export backupInstallLocation="${HOME}${dirSeparator}.backup"
 export userHomeLocation=$( getent passwd "${USER}" | cut -d: -f6 )
 
-export dirJumpFolder="${binInstallLocation}${dirSeperator}${dirJumpPath}"
-export directory_list="${binInstallLocation}${dirSeperator}${dirJumpPath}${dirSeperator}${dirListFile}"
-export defaultInstallationLocation="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
+export dirJumpFolder="${binInstallLocation}${dirSeparator}${dirJumpPath}"
+export directory_list="${binInstallLocation}${dirSeparator}${dirJumpPath}${dirSeparator}${dirListFile}"
+export defaultInstallationLocation="${HOME}${dirSeparator}.local${dirSeparator}share${dirSeparator}applications${dirSeparator}${installationSubPath}"
 export defaultSourceLocations=("${libInstallLocation}" "${modInstallLocation}" "${overridesInstallLocation}" "${themesInstallLocation}")
 export defaultBackupLocation=("${backupInstallLocation}")
 
@@ -99,26 +99,26 @@ fi
 read -p "$(echo -e ${White}Enter installation location ${Red}[${SteelBlue2}${defaultInstallationLocation}${Red}]${Aqua}: ${txtReset})" defaultInstallBaseDirectory
 
 if [[ ${defaultInstallBaseDirectory} == "" ]]; then
-	export defaultInstallBaseDirectory="${HOME}${dirSeperator}.local${dirSeperator}share${dirSeperator}applications${dirSeperator}${installationSubPath}"
+	export defaultInstallBaseDirectory="${HOME}${dirSeparator}.local${dirSeparator}share${dirSeparator}applications${dirSeparator}${installationSubPath}"
 fi
 
-export installDirectories=("${defaultInstallBaseDirectory}${dirSeperator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeperator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeperator}${installationSubPath}" "${defaultBackupLocation}")
+export installDirectories=("${defaultInstallBaseDirectory}${dirSeparator}${libSubPath}" "${defaultInstallBaseDirectory}${dirSeparator}${modSubPath}" "${defaultInstallBaseDirectory}${dirSeparator}${logsSubPath}" "${defaultInstallBaseDirectory}${dirSeparator}${archiveSubPath}" "${defaultInstallBaseDirectory}${dirSeparator}${dirJumpPath}" "${defaultInstallBaseDirectory}${dirSeparator}${installationSubPath}" "${defaultBackupLocation}")
 
 for installDirectory in ${installDirectories[*]}; do
 	if [ ! -d "${installDirectory}" ]; then
 		mkdir -p "${installDirectory}" > /dev/null 2>&1
 		retVal=$?
 		if [ $retVal -ne 0 ]; then
-    		error "[Creating directory ${installDirectory}]" >> ${logsInstallLocation}${dirSeperator}installation.log
+    		error "[Creating directory ${installDirectory}]" >> ${logsInstallLocation}${dirSeparator}installation.log
 		else
-			success "[Creating directory ${installDirectory}]" >> ${logsInstallLocation}${dirSeperator}installation.log
+			success "[Creating directory ${installDirectory}]" >> ${logsInstallLocation}${dirSeparator}installation.log
 		fi
 	fi
 done
 
 # make the overrides folder if it doesn't exist, we don't want to over write any existing overrides
-if [ ! -d "${defaultInstallBaseDirectory}${dirSeperator}${overridesInstallLocation}" ]; then
-	mkdir -p "${defaultInstallBaseDirectory}${dirSeperator}${overridesInstallLocation}" > /dev/null 2>&1
+if [ ! -d "${defaultInstallBaseDirectory}${dirSeparator}${overridesInstallLocation}" ]; then
+	mkdir -p "${defaultInstallBaseDirectory}${dirSeparator}${overridesInstallLocation}" > /dev/null 2>&1
 fi 
 
 # Install the minimal dependancies - git curl highlight most
@@ -134,16 +134,16 @@ elif [ -x "$(command -v pkg)" ];  	 then sudo pkg install $packagesNeeded
 else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 
 # Check and install some fonts for dependancies
-[ ! -d "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
-if [ ! -f "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}PowerlineSymbols.otf" ]; then
+[ ! -d "${userHomeLocation}${dirSeparator}.local${dirSeparator}share${dirSeparator}fonts${dirSeparator}" ] && mkdir -p "${userHomeLocation}${dirSeparator}.local${dirSeparator}share${dirSeparator}fonts${dirSeparator}"
+if [ ! -f "${userHomeLocation}${dirSeparator}.local${dirSeparator}share${dirSeparator}fonts${dirSeparator}PowerlineSymbols.otf" ]; then
 	wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
-	mv PowerlineSymbols.otf "${userHomeLocation}${dirSeperator}.local${dirSeperator}share${dirSeperator}fonts${dirSeperator}"
+	mv PowerlineSymbols.otf "${userHomeLocation}${dirSeparator}.local${dirSeparator}share${dirSeparator}fonts${dirSeparator}"
 fi	
 
-[ ! -d "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}" ] && mkdir -p "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"	
-if [ ! -f "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}10-powerline-symbols.conf" ]; then
+[ ! -d "${userHomeLocation}${dirSeparator}.config${dirSeparator}fontconfig${dirSeparator}conf.d${dirSeparator}" ] && mkdir -p "${userHomeLocation}${dirSeparator}.config${dirSeparator}fontconfig${dirSeparator}conf.d${dirSeparator}"	
+if [ ! -f "${userHomeLocation}${dirSeparator}.config${dirSeparator}fontconfig${dirSeparator}conf.d${dirSeparator}10-powerline-symbols.conf" ]; then
 	wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
-	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeperator}.config${dirSeperator}fontconfig${dirSeperator}conf.d${dirSeperator}"
+	mv 10-powerline-symbols.conf "${userHomeLocation}${dirSeparator}.config${dirSeparator}fontconfig${dirSeparator}conf.d${dirSeparator}"
 fi
 
 # Add the fonts to cache
@@ -153,21 +153,21 @@ fc-cache -vf ~/.local/share/fonts/
 pip install --user powerline-status
 
 # Copy all of the files to the new folder and remove the install.sh script
-cp -r ${scriptLocation}${dirSeperator}* ${defaultInstallBaseDirectory}${dirSeperator}
-echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder found at ${defaultInstallBaseDirectory}${dirSeperator}]" >> ${logsInstallLocation}${dirSeperator}install.log
-rm ${defaultInstallBaseDirectory}${dirSeperator}install.sh
+cp -r ${scriptLocation}${dirSeparator}* ${defaultInstallBaseDirectory}${dirSeparator}
+echo "[$(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')]:[SUCCESS]:[installation folder found at ${defaultInstallBaseDirectory}${dirSeparator}]" >> ${logsInstallLocation}${dirSeparator}install.log
+rm ${defaultInstallBaseDirectory}${dirSeparator}install.sh
 
 # Rename the current .bashrc to .bashrc-$timestamp-EBS
 mv "${HOME}/.bashrc" "${HOME}/.bashrc-$(LC_ALL=C date +%Y%m%d_%H%M%S)-EBS"
 
 # Create the new .bashrc to source to the enhanced-bash-system.sh
-printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\tcd ${defaultInstallBaseDirectory}${dirSeperator}\n\t\t. ${defaultInstallBaseDirectory}${dirSeperator}/bash_system.sh;;\nesac\n" > ~/.bashrc
+printf "# Created by Enhanced BASH Installer on $(LC_ALL=C date +'%Y-%m-%d %H:%M:%S')\n\ncase \"\$TERM\" in\n\txterm-color|screen|*-256color)\n\t\tcd ${defaultInstallBaseDirectory}${dirSeparator}\n\t\t. ${defaultInstallBaseDirectory}${dirSeparator}/bash_system.sh;;\nesac\n" > ~/.bashrc
 
 # Create the new directory jump folder and files
 mkdir -p ${dirJumpFolder}
-touch ${dirJumpFolder}${dirSeperator}directory_list
+touch ${dirJumpFolder}${dirSeparator}directory_list
 
 # Create the log-rotate conf file
-echo -e "${logsInstallLocation}${dirSeperator}startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee ${dirSeperator}etc${dirSeperator}logrotate.d${dirSeperator}enhanced-bash
+echo -e "${logsInstallLocation}${dirSeparator}startup.log {\n\tsu $USER $USER\n\tnotifempty\n\tcopytruncate\n\tweekly\n\trotate 52\n\tcompress\n\tmissingok\n}\n" | sudo tee ${dirSeparator}etc${dirSeparator}logrotate.d${dirSeparator}enhanced-bash
 
 # Make a Success or Error banner with a pitiful self promotion link to the gitlab page.

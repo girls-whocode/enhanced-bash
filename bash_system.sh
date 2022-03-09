@@ -25,13 +25,13 @@ scriptLocation="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 [ -f "${scriptLocation}/bin/log_system.sh" ] && source "${scriptLocation}/bin/log_system.sh" || echo "System files are not found, installation was not successful."
 [ -f "${scriptLocation}/bin/bash.conf" ] && source "${scriptLocation}/bin/bash.conf" || echo "The configuration file could not be found."
 
-export binLocation="${scriptLocation}${dirSeperator}${binSubPath}"
-export libLocation="${scriptLocation}${dirSeperator}${libSubPath}"
-export modLocation="${scriptLocation}${dirSeperator}${modSubPath}"
-export orLocation="${scriptLocation}${dirSeperator}${overrideSubPath}"
-export thmLocation="${scriptLocation}${dirSeperator}${themeSubPath}"
-export logsLocation="${scriptLocation}${dirSeperator}${logsSubPath}"
-export archiveLocation="${HOME}${dirSeperator}${archiveSubPath}"
+export binLocation="${scriptLocation}${dirSeparator}${binSubPath}"
+export libLocation="${scriptLocation}${dirSeparator}${libSubPath}"
+export modLocation="${scriptLocation}${dirSeparator}${modSubPath}"
+export orLocation="${scriptLocation}${dirSeparator}${overrideSubPath}"
+export thmLocation="${scriptLocation}${dirSeparator}${themeSubPath}"
+export logsLocation="${scriptLocation}${dirSeparator}${logsSubPath}"
+export archiveLocation="${HOME}${dirSeparator}${archiveSubPath}"
 export userHomeLocation=$( getent passwd "${USER}" | cut -d: -f6 )
 
 defaultSourceLocations=("${libLocation}" "${modLocation}" "${orLocation}" "${thmLocation}")

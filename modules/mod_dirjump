@@ -11,9 +11,9 @@
 # ==============================================================================
 # updated       :2020-12-21
 
-dirjumpfolder=${binLocation}${dirSeperator}${dirJumpPath}${dirSeperator}
-directory_list=${binLocation}${dirSeperator}${dirJumpPath}${dirSeperator}${dirListFile}
-last_dir_remove=${binLocation}${dirSeperator}${dirJumpPath}${dirSeperator}${dirLastRemoveFile}
+dirjumpfolder=${binLocation}${dirSeparator}${dirJumpPath}${dirSeparator}
+directory_list=${binLocation}${dirSeparator}${dirJumpPath}${dirSeparator}${dirListFile}
+last_dir_remove=${binLocation}${dirSeparator}${dirJumpPath}${dirSeparator}${dirLastRemoveFile}
 dirjump_command=${dirjumpCommand}
 history_size=${directoryHistorySize}
 
@@ -71,8 +71,8 @@ function apply_max_limit_to_history() {
 	# delete all directories whose numbers exceed the specified limit
 	# Source: https://stackoverflow.com/q/45125826/9157799
 
-	head -"${history_size}" "${directory_list}" > "${dirjumpfolder}"${dirSeperator}temp;
-	mv -f "${dirjumpfolder}"${dirSeperator}temp "${directory_list}"
+	head -"${history_size}" "${directory_list}" > "${dirjumpfolder}"${dirSeparator}temp;
+	mv -f "${dirjumpfolder}"${dirSeparator}temp "${directory_list}"
 }
 
 function insert_dir_path_to_top() {

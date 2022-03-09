@@ -15,7 +15,7 @@
 #           full description would be if they call that command with --help or (-h)
 
 function commands() {
-    cat ${binLocation}${dirSeperator}help.dat
+    cat ${binLocation}${dirSeparator}help.dat
 }    
 
 function under_construction() {
