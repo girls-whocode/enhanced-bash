@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function chdir(){
+    if [ -z ${1} ]; then
+        echo "Please see help for more information"
+    elif [[ "${modLocation}" == *"${1}"* ]]; then
+        cd ${modLocation}
+    elif [[ "${binLocation}" == *"${1}"* ]]; then
+        cd ${binLocation}
+    elif [[ "${libLocation}" == *"${1}"* ]]; then
+        cd ${libLocation}
+    elif [[ "${logsLocation}" == *"${1}"* ]]; then
+        cd ${logsLocation}
+    elif [[ "${orLocation}" == *"${1}"* ]]; then
+        cd ${orLocation}
+    elif [[ "${thmLocation}" == *"${1}"* ]]; then
+        cd ${thmLocation}
+    elif [[ "documentation" == *"${1}"* ]]; then
+        cd ${scriptLocation}${dirSeparator}documentation${dirSeparator}
+    elif [[ "${archLocation}" == *"${1}"* ]]; then
+        cd ${archLocation}
+    fi
+}

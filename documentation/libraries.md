@@ -1,9 +1,29 @@
 # Libraries
 ___
-[<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/icons/home.png" width="24" />](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md) [Home](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md)
+[<img src="documentation/images/icons/home.png" width="24" />](documentation/home.md) [Home](documentation/home.md)
 ___
 
+DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
 
+I would recommend to name it like this to keep it easy to understand:
+or_{comp}_{name}
+
+or is required for the system to understand this is a file that is needed to load.
+{comp} is the component type such as module, library, ect.
+{name} is any given name to tell you what it is or does.
+
+* /overrides/or_lib_mylibrary
+* /overrides/or_mod_mymodule
+___
+
+lib_aliases
+lib_colors
+lib_ebdirectories
+lib_exports
+lib_printTable
+lib_sharedFunctions
+lib_update
+lib_utils
 ___
 >>>
 ## References
