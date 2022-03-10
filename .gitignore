@@ -1,8 +1,13 @@
 # Ignore Logs
 logs
 *.log
+*.env
 
 # Ignore IDE specific files
 .idea/
 .vscode/
 *.sw*
+
+# Ignore everything in this directory
+/bin/bash.conf
+# Except this file

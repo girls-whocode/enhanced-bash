@@ -1,6 +1,6 @@
-# Libraries
+# Text Library
 ___
-[<img src="images/icons/home.png" width="24" />](/documentation/home.md) [Home](/documentation/home.md)
+[<img src="../images/icons/home.png" width="24" />](/documentation/home.md) [Home](/documentation/home.md) | [<img src="../images/icons/file_manager_system.png" width="24" />](/documentation/libraries.md) [Libraries](/documentation/libraries.md)
 ___
 
 DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
@@ -16,15 +16,7 @@ or is required for the system to understand this is a file that is needed to loa
 * /overrides/or_mod_mymodule
 ___
 
-* [lib_aliases](/documentation/libraries/lib_aliases.md)
-* [lib_colors](/documentation/libraries/lib_colors.md)
-* [lib_ebdirectories](/documentation/libraries/lib_ebdirectories.md)
-* [lib_exports](/documentation/libraries/lib_exports.md)
-* [lib_printTable](/documentation/libraries/lib_printTable.md)
-* [lib_sharedFunctions](/documentation/libraries/lib_sharedFunctions.md)
-* [lib_text](/documentation/libraries/lib_text.md)
-* [lib_update](/documentation/libraries/lib_update.md)
-* [lib_utils](/documentation/libraries/lib_utils.md)
+
 ___
 >>>
 ## References
