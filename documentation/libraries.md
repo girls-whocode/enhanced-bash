@@ -2,6 +2,10 @@
 ___
 [<img src="images/icons/home.png" width="24" />](/documentation/home.md) [Home](/documentation/home.md)
 ___
+<div class="panel panel-warning">
+**NOTE:**
+{: .panel-heading}
+<div class="panel-body">
 
 DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
 
@@ -14,6 +18,9 @@ or is required for the system to understand this is a file that is needed to loa
 
 * /overrides/or_lib_mylibrary
 * /overrides/or_mod_mymodule
+
+</div>
+</div>
 ___
 
 * [lib_aliases](/documentation/libraries/lib_aliases.md)
@@ -36,3 +43,9 @@ ___
 - The [CommonMark Dingus](http://try.commonmark.org) is a handy tool for testing CommonMark syntax.
 >>>
 ___
+
+<style>
+.alert-warning {
+  color: rgb(138,109,59) !important;
+}
+</style>
