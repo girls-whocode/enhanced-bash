@@ -2,25 +2,32 @@
 ___
 [<img src="images/icons/home.png" width="24" />](/documentation/home.md) [Home](/documentation/home.md)
 ___
-<div class="panel panel-warning">
-**NOTE:**
-{: .panel-heading}
-<div class="panel-body">
+<div class="error-msg">
+  <i class="fa fa-times-circle"></i>
+  DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
 
-DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
+  I would recommend to name it like this to keep it easy to understand:
+  or_{comp}_{name}
 
-I would recommend to name it like this to keep it easy to understand:
-or_{comp}_{name}
+  or is required for the system to understand this is a file that is needed to load.
+  {comp} is the component type such as module, library, ect.
+  {name} is any given name to tell you what it is or does.
 
-or is required for the system to understand this is a file that is needed to load.
-{comp} is the component type such as module, library, ect.
-{name} is any given name to tell you what it is or does.
-
-* /overrides/or_lib_mylibrary
-* /overrides/or_mod_mymodule
-
+  * /overrides/or_lib_mylibrary
+  * /overrides/or_mod_mymodule
 </div>
+<div class="message  message--error">
+  <p>Pastrami biltong sirloin alcatra ham hock ball tip short ribs tail chuck. Brisket turkey bacon ham porchetta ball tip. Andouille kielbasa pork loin turkey.</p>
 </div>
+
+<div class="message  message--warning">
+  <p>Pastrami fatback frankfurter ground round pork belly. Meatloaf landjaeger boudin pork strip steak. Bresaola tail capicola, salami landjaeger jerky pork loin tenderloin bacon filet mignon.</p>
+</div>
+
+<div class="message  message--success">
+  <p>Pig tri-tip ground round venison bresaola fatback prosciutto porchetta. Bresaola strip steak rump, turkey meatball pork pig t-bone porchetta cupim ham hock pancetta ham.</p>
+</div>
+
 ___
 
 * [lib_aliases](/documentation/libraries/lib_aliases.md)
@@ -45,7 +52,5 @@ ___
 ___
 
 <style>
-.alert-warning {
-  color: rgb(138,109,59) !important;
-}
+@import url('documentation/assets/msgbox.css');
 </style>
