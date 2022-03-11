@@ -52,5 +52,5 @@ ___
 ___
 
 <style>
-@import url('documentation/assets/msgbox.css');
+   @import url('documentation/assets/msgbox.css');
 </style>
