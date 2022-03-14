@@ -3,6 +3,15 @@ ___
 [<img src="https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/raw/master/documentation/images/icons/home.png" width="24" />](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md) [Home](https://gitlab.com/public_scope/bash-projects/enhanced-bash-system/-/blob/master/documentation/home.md)
 ___
 
+  I would recommend to name it like this to keep it easy to understand:
+  or_{comp}_{name}
+
+  or is required for the system to understand this is a file that is needed to load.
+  {comp} is the component type such as module, library, ect.
+  {name} is any given name to tell you what it is or does.
+
+  * /overrides/or_lib_mylibrary
+  * /overrides/or_mod_mymodule
 ___
 >>>
 ## References

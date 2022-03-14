@@ -2,33 +2,10 @@
 ___
 [<img src="images/icons/home.png" width="24" />](/documentation/home.md) [Home](/documentation/home.md)
 ___
-<div class="error-msg">
-  <i class="fa fa-times-circle"></i>
-  DO NOT MODIFY THESE FILES! If there is an update to the system, it will overwrite anythg that is not in the overrides folder. If you would like to add your own aliases, colors, directories, exports or other libraries, modules, or themes, place themin the overrides folder.
 
-  I would recommend to name it like this to keep it easy to understand:
-  or_{comp}_{name}
-
-  or is required for the system to understand this is a file that is needed to load.
-  {comp} is the component type such as module, library, ect.
-  {name} is any given name to tell you what it is or does.
-
-  * /overrides/or_lib_mylibrary
-  * /overrides/or_mod_mymodule
+<div class="message  message--information">
+  <b>MODIFYING FILES:</b> Making changes to these files is not recommended. If you would like make changes, see the Over Rides section.
 </div>
-<div class="message  message--error">
-  <p>Pastrami biltong sirloin alcatra ham hock ball tip short ribs tail chuck. Brisket turkey bacon ham porchetta ball tip. Andouille kielbasa pork loin turkey.</p>
-</div>
-
-<div class="message  message--warning">
-  <p>Pastrami fatback frankfurter ground round pork belly. Meatloaf landjaeger boudin pork strip steak. Bresaola tail capicola, salami landjaeger jerky pork loin tenderloin bacon filet mignon.</p>
-</div>
-
-<div class="message  message--success">
-  <p>Pig tri-tip ground round venison bresaola fatback prosciutto porchetta. Bresaola strip steak rump, turkey meatball pork pig t-bone porchetta cupim ham hock pancetta ham.</p>
-</div>
-
-___
 
 * [lib_aliases](/documentation/libraries/lib_aliases.md)
 * [lib_colors](/documentation/libraries/lib_colors.md)
@@ -52,5 +29,84 @@ ___
 ___
 
 <style>
-   @import url('documentation/assets/msgbox.css');
+  .message {
+    background-color: white;
+    width: calc(100% - 3em);
+    max-width: 24em;
+    padding: 1em 1em 1em 1.5em;
+    border-left-width: 6px;
+    border-left-style: solid;
+    border-radius: 3px;
+    position: relative;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+
+  .message + .message {
+    margin-top: 2em;
+  }
+
+  .message:before {
+    color: white;
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    top: 2em;
+    left: -3px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    line-height: 2em;
+    text-align: center;
+  }
+
+  .message p {
+    margin: 0 0 1em;
+  }
+
+  .message p:last-child {
+    margin-bottom: 0;
+  }
+
+  .message--error {
+    border-left-color: firebrick;
+    background-color: #F4B3AD;
+    color: #D40032;
+  }
+  .message--error:before {
+    background-color: firebrick;
+    content: "🔥";
+  }
+
+  .message--warning {
+    border-left-color: darkorange;
+    background-color: #FFD68A;
+    color: #D18700;
+  }
+  .message--warning:before {
+    background-color: darkorange;
+    content: "🔔";
+  }
+
+  .message--success {
+    border-left-color: darkolivegreen;
+    background-color: #8AFF8A;
+    color: #007500;
+  }
+
+  .message--success:before {
+    background-color: darkolivegreen;
+    content: "✔️";
+  }
+
+  .message--information {
+    border-left-color: #035CA3;
+    background-color: #62B8FC;
+    color: #035CA3;
+  }
+
+  .message--information:before {
+    background-color: #024376;
+    content: "ℹ️";
+  }
 </style>
