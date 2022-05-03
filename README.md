@@ -1,4 +1,4 @@
-# <img src="./documentation/images/icons/bash-icon-12.jpg" width="60" /> Modular and Library enforced BASH helper system for everyone
+# DEPRECIATED SEE EB3 INSTEAD
 
 ## What is this?
  **Enhanced BASH System**, started in theory and became multiple scripts all over my system and now has been developed over a very long time for ease of use. Although this particular version is still fairly new. Over the past decade I have been collecting, building, customizing and designing scripts to make my terminal experience easier to use by reducing mundane commands and make it as universal between different distributions of Linux.
